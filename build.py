@@ -17,8 +17,10 @@ BASE_ID  = os.environ.get("AIRTABLE_BASE_ID",  "appfXWwCG9UhEzGGG")
 TABLE_ID = os.environ.get("AIRTABLE_TABLE_ID", "tblEcMOTH3Zm5Muue")
 TOKEN    = os.environ.get("AIRTABLE_TOKEN", "")
 
-TEMPLATE = Path("src/template.html")
-OUTPUT   = Path("docs/index.html")
+LANDING_SRC  = Path("src/landing.html")
+TEMPLATE     = Path("src/template.html")
+OUTPUT_INDEX = Path("docs/index.html")       # landing page
+OUTPUT_DASH  = Path("docs/dashboard.html")   # dashboard
 
 # Walmart network proxy (used locally; GitHub Actions runs in the clear)
 PROXY = os.environ.get("HTTPS_PROXY", "") or os.environ.get("HTTP_PROXY", "")
@@ -116,16 +118,24 @@ def build():
     data_json  = json.dumps(providers, ensure_ascii=False, separators=(",", ":"))
     updated_at = datetime.now(timezone.utc).strftime("%d %b %Y")
 
-    html = (
+    dashboard_html = (
         template
         .replace("__PAYCRIT_DATA__",    data_json)
         .replace("__PROVIDER_COUNT__",  str(len(providers)))
         .replace("__LAST_UPDATED__",    updated_at)
     )
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(html, encoding="utf-8")
-    print(f"  Written to {OUTPUT}", flush=True)
+    OUTPUT_INDEX.parent.mkdir(parents=True, exist_ok=True)
+
+    # Write dashboard
+    OUTPUT_DASH.write_text(dashboard_html, encoding="utf-8")
+    print(f"  Dashboard written to {OUTPUT_DASH}", flush=True)
+
+    # Copy landing page as-is (no placeholders needed)
+    landing_html = LANDING_SRC.read_text(encoding="utf-8")
+    OUTPUT_INDEX.write_text(landing_html, encoding="utf-8")
+    print(f"  Landing page written to {OUTPUT_INDEX}", flush=True)
+
     print("Build complete.", flush=True)
 
 

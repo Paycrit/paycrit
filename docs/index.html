@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Paycrit - Payment Provider Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+  body { background: #f8fafc; color: #1e293b; }
+  .tab-active   { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 700; }
+  .tab-inactive { border-bottom: 2px solid transparent; color: #64748b; font-weight: 500; }
+  .tab-inactive:hover { color: #1e293b; }
+  .chip { border-radius: 9999px; padding: 5px 14px; font-size: 12px; font-weight: 600; border: 1.5px solid; cursor: pointer; transition: all 0.15s; }
+  .chip-on  { background: #2563eb; color: #fff; border-color: #2563eb; }
+  .chip-off { background: #fff; color: #475569; border-color: #e2e8f0; }
+  .chip-off:hover { border-color: #2563eb; color: #2563eb; }
+  .pcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; transition: box-shadow 0.2s, border-color 0.2s; }
+  .pcard:hover { box-shadow: 0 4px 24px rgba(37,99,235,0.08); border-color: #bfdbfe; }
+  .logo-pill { background: #1e293b; border-radius: 8px; padding: 7px 12px; display:inline-flex; align-items:center; justify-content:center; min-width:72px; }
+  .score-track { height: 6px; border-radius: 99px; background: #f1f5f9; overflow: hidden; }
+  .score-fill  { height: 100%; border-radius: 99px; }
+  .opt { border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; background: #fff; cursor: pointer; transition: all 0.15s; width: 100%; text-align:left; display:flex; align-items:center; gap:12px; }
+  .opt:hover { border-color: #93c5fd; background: #f0f7ff; }
+  .opt.picked { border-color: #2563eb; background: #eff6ff; color: #1d4ed8; font-weight: 600; }
+  .opt-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #cbd5e1; flex-shrink:0; transition: all 0.15s; }
+  .opt.picked .opt-radio { background: #2563eb; border-color: #2563eb; }
+  details summary { cursor:pointer; list-style:none; }
+  details summary::-webkit-details-marker { display:none; }
+  details[open] .chevron { transform: rotate(90deg); }
+  .chevron { transition: transform 0.2s; display:inline-block; }
+  .match-fill { height: 5px; border-radius: 99px; background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%); }
+  .step-active { background: #2563eb; color: #fff; }
+  .step-idle   { background: #f1f5f9; color: #94a3b8; }
+  .connector   { height: 1.5px; background: #e2e8f0; flex:1; }
+  .badge { display:inline-flex; align-items:center; border-radius:99px; font-size:11px; font-weight:700; padding:2px 9px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- HEADER -->
+<header class="bg-white border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+        <span class="text-white font-black text-sm">P</span>
+      </div>
+      <span class="font-black text-slate-900 text-lg tracking-tight">Paycrit</span>
+      <span class="hidden sm:inline text-slate-300 text-sm ml-1">/ Payment Intelligence</span>
+    </div>
+    <span class="text-slate-400 text-xs font-medium">14 providers &bull; Updated 01 Jul 2026</span>
+  </div>
+</header>
+
+<!-- TAB BAR -->
+<div class="bg-white border-b border-slate-100 sticky top-0 z-30">
+  <div class="max-w-7xl mx-auto px-6 flex">
+    <button onclick="switchTab('compare')" id="tab-compare" class="tab-active px-5 py-3.5 text-sm transition-all">Compare Providers</button>
+    <button onclick="switchTab('match')"   id="tab-match"   class="tab-inactive px-5 py-3.5 text-sm transition-all">Find My Match</button>
+  </div>
+</div>
+
+<!-- ===== COMPARE PANEL ===== -->
+<div id="panel-compare" class="max-w-7xl mx-auto px-6 py-8">
+  <div class="mb-6">
+    <h1 class="text-2xl font-black text-slate-900">Provider Comparison</h1>
+    <p class="text-slate-500 text-sm mt-1">Independently scored payment providers — ranked by Paycrit score.</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+    <div class="bg-white rounded-2xl border border-slate-100 p-5">
+      <div class="text-3xl font-black text-blue-600" id="stat-count">--</div>
+      <div class="text-slate-500 text-xs font-medium mt-1">Providers Rated</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-100 p-5">
+      <div class="text-3xl font-black text-emerald-600" id="stat-high">--</div>
+      <div class="text-slate-500 text-xs font-medium mt-1">Highest Score</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-100 p-5">
+      <div class="text-3xl font-black text-amber-500" id="stat-avg">--</div>
+      <div class="text-slate-500 text-xs font-medium mt-1">Avg. Score</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-100 p-5">
+      <div class="text-3xl font-black text-blue-600">3</div>
+      <div class="text-slate-500 text-xs font-medium mt-1">Volume Tiers</div>
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <div class="bg-white rounded-2xl border border-slate-100 p-6 mb-6">
+    <h2 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-5">Score Leaderboard</h2>
+    <div style="height:290px;position:relative;"><canvas id="scoreChart"></canvas></div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="bg-white rounded-2xl border border-slate-100 p-4 mb-6 flex flex-wrap gap-2 items-center">
+    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wide mr-1">Type:</span>
+    <button onclick="setFilter('type','all')"    class="chip chip-type chip-on"  data-type="all">All</button>
+    <button onclick="setFilter('type','fx')"     class="chip chip-type chip-off" data-type="fx">FX</button>
+    <button onclick="setFilter('type','card')"   class="chip chip-type chip-off" data-type="card">Card</button>
+    <button onclick="setFilter('type','wallet')" class="chip chip-type chip-off" data-type="wallet">Wallet</button>
+    <button onclick="setFilter('type','stable')" class="chip chip-type chip-off" data-type="stable">Stablecoins</button>
+    <button onclick="setFilter('type','global')" class="chip chip-type chip-off" data-type="global">Global</button>
+    <div class="w-px h-4 bg-slate-200 mx-1 hidden sm:block"></div>
+    <span class="text-slate-400 text-xs font-semibold uppercase tracking-wide mr-1">Volume:</span>
+    <button onclick="setFilter('vol','all')"  class="chip chip-vol chip-on"  data-vol="all">All</button>
+    <button onclick="setFilter('vol','5k')"   class="chip chip-vol chip-off" data-vol="5k">$5k-25k</button>
+    <button onclick="setFilter('vol','25k')"  class="chip chip-vol chip-off" data-vol="25k">$25k-100k</button>
+    <button onclick="setFilter('vol','100k')" class="chip chip-vol chip-off" data-vol="100k">$100k+</button>
+  </div>
+
+  <div id="provider-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+  <p id="no-results" class="hidden text-center text-slate-400 py-20 text-sm">No providers match this filter combination.</p>
+</div>
+
+<!-- ===== MATCH PANEL ===== -->
+<div id="panel-match" class="hidden max-w-xl mx-auto px-4 py-10">
+  <div class="text-center mb-8">
+    <h1 class="text-2xl font-black text-slate-900">Find Your Payment Match</h1>
+    <p class="text-slate-500 text-sm mt-1.5">3 quick questions. We'll rank the best providers for your business.</p>
+  </div>
+
+  <div class="flex items-center mb-10 px-4">
+    <div class="flex flex-col items-center gap-1.5">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black step-circle step-active" data-step="1">1</div>
+      <span class="text-xs text-slate-500 font-medium">Type</span>
+    </div>
+    <div class="connector mx-2 mb-4"></div>
+    <div class="flex flex-col items-center gap-1.5">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black step-circle step-idle" data-step="2">2</div>
+      <span class="text-xs text-slate-500 font-medium">Volume</span>
+    </div>
+    <div class="connector mx-2 mb-4"></div>
+    <div class="flex flex-col items-center gap-1.5">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black step-circle step-idle" data-step="3">3</div>
+      <span class="text-xs text-slate-500 font-medium">Revenue</span>
+    </div>
+  </div>
+
+  <div id="q1" class="question-step">
+    <div class="bg-white border border-slate-100 rounded-2xl p-6">
+      <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Question 1 of 3</p>
+      <h2 class="text-xl font-black text-slate-900 mb-5">What is your business type?</h2>
+      <div class="flex flex-col gap-2.5">
+        <button onclick="pick('q1','fx')"     class="opt"><span class="opt-radio"></span>FX</button>
+        <button onclick="pick('q1','card')"   class="opt"><span class="opt-radio"></span>Card Payments</button>
+        <button onclick="pick('q1','wallet')" class="opt"><span class="opt-radio"></span>Wallet</button>
+        <button onclick="pick('q1','stable')" class="opt"><span class="opt-radio"></span>Stablecoins</button>
+        <button onclick="pick('q1','global')" class="opt"><span class="opt-radio"></span>Global Payments</button>
+      </div>
+      <div class="mt-6 flex justify-end">
+        <button onclick="goNext(1)" id="btn-1" disabled class="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="q2" class="question-step hidden">
+    <div class="bg-white border border-slate-100 rounded-2xl p-6">
+      <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Question 2 of 3</p>
+      <h2 class="text-xl font-black text-slate-900 mb-5">Monthly processing volume?</h2>
+      <div class="flex flex-col gap-2.5">
+        <button onclick="pick('q2','5k')"   class="opt"><span class="opt-radio"></span>$5k &ndash; $25k</button>
+        <button onclick="pick('q2','25k')"  class="opt"><span class="opt-radio"></span>$25k &ndash; $100k</button>
+        <button onclick="pick('q2','100k')" class="opt"><span class="opt-radio"></span>$100k+</button>
+      </div>
+      <div class="mt-6 flex justify-between">
+        <button onclick="goBack(2)" class="text-slate-400 hover:text-slate-700 text-sm px-2 py-2 transition-all">&larr; Back</button>
+        <button onclick="goNext(2)" id="btn-2" disabled class="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="q3" class="question-step hidden">
+    <div class="bg-white border border-slate-100 rounded-2xl p-6">
+      <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Question 3 of 3</p>
+      <h2 class="text-xl font-black text-slate-900 mb-2">How much of your revenue comes from international customers?</h2>
+      <div class="flex flex-col gap-2.5 mt-5">
+        <button onclick="pick('q3','domestic')" class="opt"><span class="opt-radio"></span>Domestic only</button>
+        <button onclick="pick('q3','both')"     class="opt"><span class="opt-radio"></span>International &amp; Domestic</button>
+      </div>
+      <div class="mt-6 flex justify-between">
+        <button onclick="goBack(3)" class="text-slate-400 hover:text-slate-700 text-sm px-2 py-2 transition-all">&larr; Back</button>
+        <button onclick="showResults()" id="btn-3" disabled class="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all">See My Matches</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="match-results" class="hidden">
+    <div class="flex items-center justify-between mb-5">
+      <div>
+        <h2 class="text-xl font-black text-slate-900">Your Top Matches</h2>
+        <p class="text-slate-400 text-xs mt-0.5">Ranked by compatibility with your answers</p>
+      </div>
+      <button onclick="resetMatch()" class="text-blue-600 hover:text-blue-800 text-sm font-semibold transition-all">Start over</button>
+    </div>
+    <div id="results-list" class="flex flex-col gap-3"></div>
+  </div>
+</div>
+
+<script>
+const PROVIDERS = [{"name":"Airwallex","score":5.0,"vol":"25k to 100k","btype":"Global payments + FX + transfers + cards","target":"International or cross-border e-commerce businesses","pros":"1. Transparent pricing \n2. Global payment and currency conversion in one place reduce addition costs for merchants\n3. Easy integration ","cons":"1. Application approval process is lengthy\n","price":"Airwallex charges 1.65% + $0.30 on US domestic card acceptance and international cards run closer 3.40% + $0.30. The Explore plan is $0/month if a business deposits $5,000 monthly or maintains a $10,000 account balance; otherwise it's $29/month. Receiving money is free in most currencies, and local transfers to 120+ countries are free. FX conversion markup runs 0.5–1%, and Airwallex does not charge incoming payment fees for most supported currencies. ","logo":"https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.airwallex.com/global","kyc":"https://help.airwallex.com/hc/en-gb/articles/12343890235151-KYC-Submission-FAQs","pp":"https://www.airwallex.com/en-au/pricing"},{"name":"Worldfirst","score":4.5,"vol":"25k to 100k","btype":"Multi-currency account + cross-border payments + FX","target":"Best suited for e-commerce sellers, importers, and businesses with regular international payments.","pros":"1. No setup or account maintenance fees, and no transfer fees in most cases\n2. Competitive exchange rates for high-volume transfers, with discounts available for eligible businesses\n3. Fast transfers to many countries\n4. Multi currency support","cons":"1. Potential SWIFT/intermediary bank fees, which can’t always be predicted or avoided","price":"Exchange rates typically sit 0.3–0.6% above the mid-market rate. International SWIFT payments cost £4 per payment, capped at £15. A current promotional offer (Feb 11 – Dec 31, 2026) gives new customers a flat 0.3% FX fee for 180 days from account verification, alongside up to 1.2% cashback on eligible business spend via the World Card. \n\nNote this promotional rate is time-limited and not WorldFirst's standard ongoing pricing ","logo":"https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.worldfirst.com/global/","kyc":"https://www.worldfirst.com/eu/help-center/onboarding/required-documents-for-opening-account-other-countries/","pp":"https://www.worldfirst.com/uk/pricing/"},{"name":"Payoneer","score":4.5,"vol":"100k+","btype":"Global payments + payouts + ACH/bank transfer + FX + wallets + merchant advances ","target":"e-commerce marketplace and freelancers","pros":"1. Low-cost payments \n2. Free to set up, highly recommended for new and growing business \n3. Make international payments ","cons":"1. Not suitable for large scale businesses\n2. Point of sale is not available and limits the ability to receive payment from all sources  ","price":"Marketplace payments from platforms like Upwork and Fiverr typically incur a 1% receiving fee, while credit-card-funded payment requests jump to 3%, and ACH/eCheck payments from US clients also carry a 1% fee. Payoneer-balance-to-Payoneer-balance transfers in local currency are free, but cross-currency transfers cost an extra 0.5%. Credit card payments cost up to 3.99% of the transaction (plus $0.49 in some countries), and withdrawing or transferring funds into local currency adds another 1–4%. Same-currency withdrawals carry a $1.50 flat fee for monthly withdrawals under $50,000. An annual account fee of $29.95 applies if a user doesn't receive at least $6,000 over any 12 consecutive months.","logo":"https://cdn.brandfetch.io/idVmyDyyyZ/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.payoneer.com","kyc":"https://payoneer.custhelp.com/app/answers/detail/a_id/34658/~/document-verification-–-faq","pp":"https://www.payoneer.com/about/pricing/"},{"name":"Square","score":4.0,"vol":"100k+","btype":"POS + card payments + wallet/merchant finance","target":"New merchants, mid and small scale merchants","pros":"1. Ease of Use\n2. Affordability and Transparent Pricing\n3. In house hardware for POS systems\n4. Fast Setup Process with minimal documentation","cons":"1. Must upgrade to highest tier plan for priority support","price":"Square Free plan users costs 3.3% + $0.30, Premium plan users are charged 2.9%. Square Premium costs $149/month per location and in-person card payments is at 2.4% + $0.15, online card payments at 2.9% + $0.30. ACH via invoice and instant/same-day transfers cost 1.95% per transfer, while standard next-business-day transfers remain free.","logo":"https://cdn.brandfetch.io/idyxZCX73R/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://squareup.com/","kyc":"https://squareup.com/help/au/en/article/7442-required-documentation-for-sign-up","pp":"https://squareup.com/ca/en/pricing"},{"name":"Currenxie","score":4.0,"vol":"5k to 25k","btype":"Global payments + FX + business payments","target":"Businesses operating in or trading heavily with Hong Kong and Asia-Pacific markets","pros":"1. No Monthly Fees Keep the Base Cost at Zero for Most Businesses\n2. Volume-Based FX Pricing Automatically Improves Rates as Your Business Grows\n","cons":"1. Collecting Local Payments Costs USD 0.75 per Transfer\n2. Visa Business Card Is Limited to Hong Kong-Registered Companies","price":"Currenxie charges no setup or monthly fees for most businesses, costs are activity-based. The two costs most likely to affect active accounts are a USD 0.75 inbound receiving fee and a USD 8 SWIFT fee. Every local HKD payment collected costs USD 0.75, while every local HKD payment sent costs USD 3. The first card, for account admins, is free. ","logo":"https://cdn.brandfetch.io/idPyJLfkby/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://currenxie.com","kyc":"https://help.currenxie.com/hc/en-us/articles/4406152321049-What-documents-are-needed-for-opening-a-Global-Account","pp":"https://currenxie.com/pricing"},{"name":"Adyen","score":3.5,"vol":"100k+","btype":"Enterprise payments + payouts + FX/money movement","target":"Global e-commerce enterprises","pros":"1. Supports global payments and multiple currencies.\n2. Competitive pricing for FX conversion and fees. \n3. Real-time reporting and unified commerce dashboard.\n4. Sound legal operations and collaboration with almost all payment providers worldwide","cons":"1. Not suitable for small scale merchants \n2. Fees calculation is complex ","price":"the Interchange Fee paid to the cardholder's issuing bank (varying by card type and region), the Scheme Fee paid to the card network, and Adyen's own markup, typically around 0.60% minimum. For a $100 US credit card transaction, total fees typically range from $2.40 to $3.75 depending on card type and negotiated rate. Adyen's own processing fee specifically ranges from roughly €0.10–€0.15 per transaction","logo":"https://cdn.brandfetch.io/idlDNXV2nw/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.adyen.com/","kyc":"https://docs.adyen.com/platforms/quickstart-guide/onboarding-and-kyc","pp":"https://www.adyen.com/pricing"},{"name":"Transfermate","score":3.5,"vol":"100k+","btype":"Global payments +  infrastructure + cross-border bank transfers","target":"Freelancers, small businesses, mid-size businesses, and large enterprises. ","pros":"1. Good Exchange Rates with reduced transfer fees \n2. Preferential Exchange Rates\n3. Transparent Tracking","cons":"1. No mobile app.\n2. Limited payout methods.","price":"There are no transfer fees on transfers over €5,000 for registered businesses. Transfers between €1,000–€5,000 from business accounts attract a nominal €5 fee, and transfers below €1,000 may be charged up to €15 per transaction. A separate €10 fee applies to transfers initiated from individual accounts. ","logo":"https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.transfermate.com","kyc":"https://www.transfermate.com/post/introducing-transfermates-account-verification-service","pp":"https://www.transfermate.io/en/international-wire-transfer-in-foreign-currency.asp?usr_ctry=40"},{"name":"Worldpay","score":3.5,"vol":"25k to 100k","btype":"Card acquiring + multicurrency/FX + payouts","target":"Best fit for established businesses processing $50,000 or more per month ","pros":"1. 300+ payment methods and 135+ currencies accepted \n2. Interchange-plus pricing is negotiable \n3. High rating customer review","cons":"1. Fees are not transparent\n2. long term contracts with 90 days cancellation window\n3. Not suitable for small merchants ","price":"Payment processors charge a percentage of each credit or debit card transaction plus a flat fee, typically 1.3% to 3.5%. Processing charges may appear as a per-transaction fee, a monthly service fee or include the cost of the credit card transaction equipment.","logo":"https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.worldpay.com/en","kyc":"https://www.worldpay.com/en-CA/insights/articles/what-you-need-to-know-to-open-a-merchant-account","pp":"https://www.worldpay.com/en-CA/insights/articles/how-to-understand-payment-processing-fees"},{"name":"Checkout.com","score":3.0,"vol":"100k+","btype":"Card + acquiring payments + global payments +PSP","target":"Established e-commerce and enterprise merchants ","pros":"1. Pricing is not disclosed, this leaves room for negotiation\n2. Easy integration and does not charge set up fees","cons":"1. Pricing is not transparent \n2. limited tech features \n3. Not available for all business types ","price":"Pricing is not disclosed publicly, business will be provided with tailored pricing as per business needs. However as per sources client are charged flat transaction fees of 0.95% + $0.20 for European cards and 2.90% + $0.20 for non-European cards. \nBusinesses qualifying for the Enterprise plan, based on sales volume and history, are quoted interchange plus 0.10%–0.40% plus $0.08.","logo":"https://cdn.brandfetch.io/idZx1reqXu/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.checkout.com","kyc":"https://www.checkout.com/blog/customer-onboarding-identity-verification","pp":"https://www.checkout.com/pricing"},{"name":"Stripe","score":3.0,"vol":"25k to 100k","btype":"Card payments + global payments + stablecoins ","target":"Startups and SaaS Platforms","pros":"1. Competitive pricing \n2. World-Class API & Dev Ecosystem\n3. Comprehensive Horizontal Products with variety of payment options\n4. Easy onboarding and integration suitable for new businesses","cons":"1. Massive Cross-Border Margin Drag\n2. Unexpected account Freezes","price":"Standard US: 2.9% + 30¢ online, 2.7% + 5¢ in-person, 3.4% + 30¢ for keyed transactions, ACH at 0.8% capped at $5. Worst-case combined international + currency conversion fees can reach 5.4% + 30¢","logo":"https://cdn.brandfetch.io/idRpCarqbB/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://stripe.com","kyc":"https://support.stripe.com/topics/verification","pp":"https://stripe.com/en-ca/pricing"},{"name":"Paypal","score":2.5,"vol":"25k to 100k","btype":"Wallet + card payments + stablecoins + crypto","target":"merchants who value checkout conversion and buyer trust. Recommended medium to large scale merchants","pros":"1. Presence in multiple countries \n2. Robust dispute & claims Processes\n3. Trust factor, users trust Paypal more than other payment providers\n4. Easy tools for API integration\n5. Chargeback protection","cons":"1. Higher transaction & FX currency conversion Fees compared to competitors\n2. Not suitable for small businesses \n3. Intensive fraud alerts and review mechanism","price":"PayPal Checkout (wallet/Venmo) is typically 3.49% + $0.49 for US merchants, while PayPal Goods & Services domestic payments are listed at 2.99%. International transactions run around 4.99% plus a fixed fee, with currency conversion adding approximately 3.5%.","logo":"https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.paypal.com/business","kyc":"https://www.paypal.com/us/cshelp/article/what-documents-can-i-upload-to-confirm-my-business-entity-help493","pp":"https://www.paypal.com/ca/business/paypal-business-fees"},{"name":"Ebury","score":2.0,"vol":"25k to 100k","btype":"Global payments  + FX + cross-border payments","target":"B2B and trade finance focused","pros":"1. Cash advance and loan for merchants are approved quickly ","cons":"1. Insufficient information to validate PSP benefits \n2. Pricing non transparent\n3. Delayed customer concerns  ","price":"Ebury does not publish a standard transparent rate card","logo":"https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://ebury.com/","kyc":"","pp":""},{"name":"Open USD (OUSD)","score":null,"vol":"5k to 25k","btype":"Stable coins","target":"","pros":"","cons":"","price":"","logo":"","web":"","kyc":"","pp":""},{"name":"Sunrate","score":null,"vol":"25k to 100k","btype":"Global payments + treasury management + multi-currency settlement","target":"SUNRATE supports businesses and individual sellers conducting transactions involving goods or services","pros":"","cons":"","price":"Sunrate does not publish pricing openly on a public page. ","logo":"https://cdn.brandfetch.io/idY4rzp0Gt/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B","web":"https://www.sunrate.com","kyc":"https://help.sunrate.com/docs/register-as-a-company","pp":""}];
+
+const volKey = { '5k':'5k to 25k', '25k':'25k to 100k', '100k':'100k+' };
+const typeKeys = { fx:['fx','foreign exchange','currency'], card:['card'], wallet:['wallet'], stable:['stable','coin','crypto'], global:['global','cross-border','international','multi-currency','multicurrency'] };
+
+function scoreColor(s) {
+  if (s===null) return '#94a3b8';
+  if (s>=4.5) return '#16a34a';
+  if (s>=3.5) return '#2563eb';
+  if (s>=2.5) return '#f59e0b';
+  return '#ef4444';
+}
+function scoreBadge(s) {
+  if (s===null) return {label:'Not Rated',bg:'#f1f5f9',text:'#64748b'};
+  if (s>=4.5) return {label:'Excellent',bg:'#dcfce7',text:'#15803d'};
+  if (s>=3.5) return {label:'Good',bg:'#dbeafe',text:'#1d4ed8'};
+  if (s>=2.5) return {label:'Average',bg:'#fef3c7',text:'#92400e'};
+  return {label:'Below Avg',bg:'#fee2e2',text:'#991b1b'};
+}
+function listItems(txt) {
+  if (!txt) return '<span class="text-slate-400 italic text-xs">N/A</span>';
+  return txt.split('\n').filter(Boolean).map(l =>
+    `<li class="flex items-start gap-1.5"><span class="mt-0.5 flex-shrink-0 opacity-40">&#8250;</span><span>${l.replace(/^\d+\.\s*/,'')}</span></li>`
+  ).join('');
+}
+function matchesType(bt,f){ if(f==='all') return true; return (typeKeys[f]||[]).some(k=>bt.toLowerCase().includes(k)); }
+function matchesVol(v,f){ if(f==='all') return true; return v===volKey[f]; }
+
+function buildStats() {
+  const rated = PROVIDERS.filter(p=>p.score!==null);
+  document.getElementById('stat-count').textContent = rated.length;
+  document.getElementById('stat-high').textContent  = Math.max(...rated.map(p=>p.score)).toFixed(1);
+  const avg = rated.reduce((a,p)=>a+p.score,0)/rated.length;
+  document.getElementById('stat-avg').textContent   = avg.toFixed(1);
+}
+
+function buildChart() {
+  const rated = [...PROVIDERS].filter(p=>p.score!==null).sort((a,b)=>b.score-a.score);
+  new Chart(document.getElementById('scoreChart').getContext('2d'), {
+    type:'bar',
+    data:{labels:rated.map(p=>p.name),datasets:[{data:rated.map(p=>p.score),backgroundColor:rated.map(p=>scoreColor(p.score)),borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` Score: ${c.parsed.x} / 5.0`}}},
+      scales:{x:{min:0,max:5,grid:{color:'#f8fafc'},ticks:{color:'#94a3b8',font:{size:11}}},y:{grid:{display:false},ticks:{color:'#1e293b',font:{size:11,weight:'600'}}}}
+    }
+  });
+}
+
+let aType='all', aVol='all';
+function setFilter(dim,val) {
+  if(dim==='type') aType=val; else aVol=val;
+  document.querySelectorAll('.chip-'+dim).forEach(b=>{
+    const hit=b.dataset[dim]===val;
+    b.classList.toggle('chip-on',hit); b.classList.toggle('chip-off',!hit);
+  });
+  renderCards();
+}
+
+function renderCards() {
+  const grid=document.getElementById('provider-grid');
+  const none=document.getElementById('no-results');
+  const vis=PROVIDERS.filter(p=>p.name&&matchesType(p.btype,aType)&&matchesVol(p.vol,aVol)).sort((a,b)=>(b.score||0)-(a.score||0));
+  if(!vis.length){grid.innerHTML='';none.classList.remove('hidden');return;}
+  none.classList.add('hidden');
+  grid.innerHTML=vis.map(p=>{
+    const pct=((p.score||0)/5)*100; const col=scoreColor(p.score); const bd=scoreBadge(p.score);
+    return `<div class="pcard flex flex-col gap-3">
+      <div class="flex items-start justify-between gap-3">
+        <div class="logo-pill"><img src="${p.logo}" alt="${p.name}" style="height:26px;max-width:100px;object-fit:contain;" onerror="this.parentNode.innerHTML='<span style=color:#fff;font-weight:700;font-size:12px>${p.name}</span>'"/></div>
+        <div class="text-right flex-shrink-0">
+          <div class="text-2xl font-black" style="color:${col}">${p.score!==null?p.score:'N/R'}</div>
+          <span class="badge" style="background:${bd.bg};color:${bd.text}">${bd.label}</span>
+        </div>
+      </div>
+      <div class="score-track"><div class="score-fill" style="width:${pct}%;background:${col}"></div></div>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold" style="background:#f1f5f9;color:#475569">${p.vol}</span>
+        <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold" style="background:#eff6ff;color:#2563eb">${p.target.slice(0,46)}${p.target.length>46?'...':''}</span>
+      </div>
+      <p class="text-slate-400 text-xs leading-relaxed">${p.btype}</p>
+      <details>
+        <summary class="flex items-center gap-1.5 text-slate-600 hover:text-blue-600 font-semibold text-xs py-1 transition-colors">
+          <span class="chevron" style="font-size:10px">&#9654;</span>Pros, Cons &amp; Pricing
+        </summary>
+        <div class="mt-3 pt-3 border-t border-slate-100 flex flex-col gap-3 text-xs">
+          <div><p class="font-bold text-emerald-600 mb-1.5">Pros</p><ul class="text-slate-600 space-y-1">${listItems(p.pros)}</ul></div>
+          <div><p class="font-bold text-red-500 mb-1.5">Cons</p><ul class="text-slate-600 space-y-1">${listItems(p.cons)}</ul></div>
+          <div><p class="font-bold text-blue-600 mb-1.5">Pricing</p><p class="text-slate-600 leading-relaxed">${p.price||'Contact for pricing'}</p></div>
+          <div class="flex flex-wrap gap-3 pt-1">
+            ${p.web?`<a href="${p.web}" target="_blank" class="text-blue-600 hover:underline font-semibold">Website</a>`:''}
+            ${p.pp?`<a href="${p.pp}" target="_blank" class="text-blue-600 hover:underline font-semibold">Pricing</a>`:''}
+            ${p.kyc?`<a href="${p.kyc}" target="_blank" class="text-blue-600 hover:underline font-semibold">KYC Docs</a>`:''}
+          </div>
+        </div>
+      </details>
+    </div>`;
+  }).join('');
+}
+
+const ans={q1:null,q2:null,q3:null};
+function pick(q,val) {
+  ans[q]=val;
+  document.getElementById(q).querySelectorAll('.opt').forEach(b=>{
+    const lbl=b.textContent.trim().toLowerCase();
+    const hit=lbl.includes(val==='5k'?'5k':val==='25k'?'25k':val==='100k'?'100k':val==='domestic'?'domestic':val==='both'?'international':val);
+    b.classList.toggle('picked',hit);
+  });
+  const n=q.replace('q','');
+  const btn=document.getElementById('btn-'+n)||document.getElementById('btn-3');
+  if(btn) btn.disabled=false;
+}
+function goNext(f){document.getElementById('q'+f).classList.add('hidden');document.getElementById('q'+(f+1)).classList.remove('hidden');updateSteps(f+1);}
+function goBack(f){document.getElementById('q'+f).classList.add('hidden');document.getElementById('q'+(f-1)).classList.remove('hidden');updateSteps(f-1);}
+function updateSteps(a){
+  document.querySelectorAll('.step-circle').forEach(el=>{
+    const s=parseInt(el.dataset.step);
+    el.className=el.className.replace(/step-\w+/g,'').trim();
+    el.classList.add(s<=a?'step-active':'step-idle');
+  });
+}
+function scoreForMatch(p,q1,q2,q3){
+  let s=0; const bt=p.btype.toLowerCase();
+  s+=(typeKeys[q1]||[]).some(k=>bt.includes(k))?4:0;
+  if(p.vol===volKey[q2]) s+=3;
+  else if((q2==='25k'&&p.vol!=='100k+')||(q2==='100k'&&p.vol==='25k to 100k')||(q2==='5k'&&p.vol==='25k to 100k')) s+=1;
+  const intl=['global','cross-border','fx','multi-currency','international'].some(k=>bt.includes(k));
+  if(q3==='both'&&intl) s+=3; else if(q3==='domestic'&&!intl) s+=3; else if(q3==='domestic'&&intl) s+=1;
+  return s;
+}
+function showResults(){
+  document.getElementById('q3').classList.add('hidden');
+  document.getElementById('match-results').classList.remove('hidden');
+  const top5=PROVIDERS.filter(p=>p.name).map(p=>({...p,ms:scoreForMatch(p,ans.q1,ans.q2,ans.q3)})).sort((a,b)=>b.ms-a.ms).slice(0,5);
+  document.getElementById('results-list').innerHTML=top5.map((p,i)=>{
+    const pct=Math.round((p.ms/10)*100); const bd=scoreBadge(p.score); const col=scoreColor(p.score);
+    return `<div class="bg-white border border-slate-100 rounded-2xl p-5 hover:border-blue-100 transition-all">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="logo-pill flex-shrink-0"><img src="${p.logo}" alt="${p.name}" style="height:22px;max-width:80px;object-fit:contain;" onerror="this.parentNode.innerHTML='<span style=color:#fff;font-weight:700;font-size:11px>${p.name}</span>'"/></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-black text-slate-900 text-sm">${p.name}</span>
+            ${i===0?'<span class="badge" style="background:#dbeafe;color:#1d4ed8">Best Match</span>':''}
+            ${i===1?'<span class="badge" style="background:#f1f5f9;color:#475569">2nd Match</span>':''}
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Paycrit: <strong style="color:${col}">${p.score!==null?p.score+'/5.0':'N/R'}</strong></p>
+        </div>
+        <div class="text-right flex-shrink-0">
+          <div class="text-xl font-black text-blue-600">${pct}%</div>
+          <div class="text-xs text-slate-400">match</div>
+        </div>
+      </div>
+      <div class="score-track mb-3"><div class="match-fill" style="width:${pct}%"></div></div>
+      <p class="text-xs text-slate-500 mb-2">${p.target}</p>
+      <div class="flex flex-wrap gap-3">
+        ${p.web?`<a href="${p.web}" target="_blank" class="text-xs text-blue-600 hover:underline font-semibold">Website</a>`:''}
+        ${p.pp?`<a href="${p.pp}" target="_blank" class="text-xs text-blue-600 hover:underline font-semibold">Pricing</a>`:''}
+        ${p.kyc?`<a href="${p.kyc}" target="_blank" class="text-xs text-blue-600 hover:underline font-semibold">KYC Docs</a>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+function resetMatch(){
+  Object.keys(ans).forEach(k=>ans[k]=null);
+  ['q1','q2','q3'].forEach(q=>document.getElementById(q).querySelectorAll('.opt').forEach(b=>b.classList.remove('picked')));
+  ['btn-1','btn-2','btn-3'].forEach(id=>{const el=document.getElementById(id);if(el) el.disabled=true;});
+  document.getElementById('match-results').classList.add('hidden');
+  document.getElementById('q1').classList.remove('hidden');
+  ['q2','q3'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+  updateSteps(1);
+}
+function switchTab(t){
+  document.getElementById('panel-compare').classList.toggle('hidden',t!=='compare');
+  document.getElementById('panel-match').classList.toggle('hidden',t!=='match');
+  document.getElementById('tab-compare').className=(t==='compare'?'tab-active':'tab-inactive')+' px-5 py-3.5 text-sm transition-all';
+  document.getElementById('tab-match').className=(t==='match'?'tab-active':'tab-inactive')+' px-5 py-3.5 text-sm transition-all';
+}
+
+buildStats();
+buildChart();
+renderCards();
+</script>
+</body>
+</html>

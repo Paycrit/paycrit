@@ -34,6 +34,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html
+          git add docs/index.html docs/dashboard.html
           git diff --cached --quiet || git commit -m "chore: refresh provider data $(date -u '+%Y-%m-%d')"
           git push

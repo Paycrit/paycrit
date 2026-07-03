@@ -20,8 +20,8 @@
   .chip-off:hover { border-color: #2563eb; color: #2563eb; }
   .pcard { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 24px; transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s; }
   .pcard:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.09); border-color: #bfdbfe; transform: translateY(-2px); }
-  .logo-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 10px 16px; display:inline-flex; align-items:center; justify-content:center; min-width:90px; height:48px; flex-shrink:0; }
-  .logo-initial { background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; width:90px; height:48px; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#2563eb; flex-shrink:0; }
+  .provider-logo { height: 28px; max-width: 110px; object-fit: contain; display: block; }
+  .logo-text { font-weight: 800; font-size: 13px; color: #1e293b; letter-spacing: -0.01em; }
   .score-track { height: 6px; border-radius: 99px; background: #f1f5f9; overflow: hidden; }
   .score-fill  { height: 100%; border-radius: 99px; }
   .opt { border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; background: #fff; cursor: pointer; transition: all 0.15s; width: 100%; text-align:left; display:flex; align-items:center; gap:12px; }
@@ -283,8 +283,8 @@ function renderCards() {
     const pct=((p.score||0)/5)*100; const col=scoreColor(p.score); const bd=scoreBadge(p.score);
     const lightLogo = p.logo ? p.logo.replace('theme/dark','theme/light') : '';
     const logoHtml = lightLogo
-      ? `<div class="logo-box"><img src="${lightLogo}" alt="${p.name}" style="height:24px;max-width:100px;object-fit:contain;" onerror="this.parentNode.outerHTML='<div class=logo-initial>${p.name.slice(0,4)}</div>'"/></div>`
-      : `<div class="logo-initial">${p.name.slice(0,4)}</div>`;
+      ? `<img src="${lightLogo}" alt="${p.name}" class="provider-logo" onerror="this.outerHTML='<span class=logo-text>${p.name}</span>'"/>`
+      : `<span class="logo-text">${p.name}</span>`;
     return `<div class="pcard flex flex-col gap-3">
       <div class="flex items-start justify-between gap-3">
         ${logoHtml}

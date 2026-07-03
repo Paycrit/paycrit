@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
-  body { background: #f8fafc; color: #1e293b; }
+  body { background: #ffffff; color: #1e293b; }
   .tab-active   { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 700; }
   .tab-inactive { border-bottom: 2px solid transparent; color: #64748b; font-weight: 500; }
   .tab-inactive:hover { color: #1e293b; }
@@ -18,9 +18,10 @@
   .chip-on  { background: #2563eb; color: #fff; border-color: #2563eb; }
   .chip-off { background: #fff; color: #475569; border-color: #e2e8f0; }
   .chip-off:hover { border-color: #2563eb; color: #2563eb; }
-  .pcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; transition: box-shadow 0.2s, border-color 0.2s; }
-  .pcard:hover { box-shadow: 0 4px 24px rgba(37,99,235,0.08); border-color: #bfdbfe; }
-  .logo-pill { background: #1e293b; border-radius: 8px; padding: 7px 12px; display:inline-flex; align-items:center; justify-content:center; min-width:72px; }
+  .pcard { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 24px; transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s; }
+  .pcard:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.09); border-color: #bfdbfe; transform: translateY(-2px); }
+  .logo-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 10px 16px; display:inline-flex; align-items:center; justify-content:center; min-width:90px; height:48px; flex-shrink:0; }
+  .logo-initial { background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; width:90px; height:48px; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#2563eb; flex-shrink:0; }
   .score-track { height: 6px; border-radius: 99px; background: #f1f5f9; overflow: hidden; }
   .score-fill  { height: 100%; border-radius: 99px; }
   .opt { border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; background: #fff; cursor: pointer; transition: all 0.15s; width: 100%; text-align:left; display:flex; align-items:center; gap:12px; }
@@ -41,37 +42,45 @@
 </head>
 <body class="min-h-screen">
 
-<!-- HEADER -->
-<header class="bg-white border-b border-slate-100">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-2.5">
+<!-- NAV -->
+<nav class="bg-white border-b border-slate-100 sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5 no-underline">
       <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
         <span class="text-white font-black text-sm">P</span>
       </div>
-        <span class="font-black text-slate-900 text-lg tracking-tight">Paycrit</span>
-      <span class="hidden sm:inline text-slate-300 text-sm ml-1">/ Payment Intelligence</span>
-    </div>
+      <span class="font-black text-slate-900 text-lg tracking-tight">Paycrit</span>
+    </a>
     <div class="flex items-center gap-4">
-      <a href="index.html" class="text-slate-400 hover:text-slate-700 text-xs font-semibold transition-colors">&larr; Home</a>
-      <a href="services.html" class="text-slate-400 hover:text-slate-700 text-xs font-semibold transition-colors">Services</a>
-      <span class="text-slate-400 text-xs font-medium">14 providers &bull; Updated 01 Jul 2026</span>
+      <a href="dashboard.html" class="text-blue-600 text-sm font-semibold">Compare</a>
+      <a href="services.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Services</a>
+      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="bg-blue-600 text-white font-bold py-2 px-5 rounded-xl text-sm hover:bg-blue-700 transition-colors">Find My Match</a>
     </div>
   </div>
-</header>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="bg-white border-b border-slate-100 px-6 py-10 text-center" style="background:radial-gradient(ellipse 80% 60% at 50% -10%, #dbeafe 0%, #ffffff 70%)">
+  <div class="max-w-2xl mx-auto">
+    <span class="inline-flex items-center bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-100 uppercase tracking-wider mb-4">Payment Provider Intelligence</span>
+    <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Compare &amp; Find Your Match</h1>
+    <p class="text-slate-500 text-base max-w-lg mx-auto">14 providers independently scored &bull; Updated 01 Jul 2026</p>
+  </div>
+</section>
 
 <!-- TAB BAR -->
-<div class="bg-white border-b border-slate-100 sticky top-0 z-30">
-  <div class="max-w-7xl mx-auto px-6 flex">
+<div class="bg-white border-b border-slate-100 sticky top-[73px] z-30">
+  <div class="max-w-6xl mx-auto px-6 flex">
     <button onclick="switchTab('compare')" id="tab-compare" class="tab-active px-5 py-3.5 text-sm transition-all">Compare Providers</button>
     <button onclick="switchTab('match')"   id="tab-match"   class="tab-inactive px-5 py-3.5 text-sm transition-all">Find My Match</button>
   </div>
 </div>
 
 <!-- ===== COMPARE PANEL ===== -->
-<div id="panel-compare" class="max-w-7xl mx-auto px-6 py-8">
+<div id="panel-compare" class="max-w-6xl mx-auto px-6 py-10">
   <div class="mb-6">
-    <h1 class="text-2xl font-black text-slate-900">Provider Comparison</h1>
-    <p class="text-slate-500 text-sm mt-1">Independently scored payment providers — ranked by Paycrit score.</p>
+    <h2 class="text-xl font-black text-slate-900">Provider Comparison</h2>
+    <p class="text-slate-500 text-sm mt-1">Independently scored — ranked by Paycrit score. Click any card to see full pricing &amp; KYC details.</p>
   </div>
 
   <!-- STATS -->
@@ -117,7 +126,7 @@
     <button onclick="setFilter('vol','100k')" class="chip chip-vol chip-off" data-vol="100k">$100k+</button>
   </div>
 
-  <div id="provider-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+  <div id="provider-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
   <p id="no-results" class="hidden text-center text-slate-400 py-20 text-sm">No providers match this filter combination.</p>
 </div>
 
@@ -272,18 +281,23 @@ function renderCards() {
   none.classList.add('hidden');
   grid.innerHTML=vis.map(p=>{
     const pct=((p.score||0)/5)*100; const col=scoreColor(p.score); const bd=scoreBadge(p.score);
+    const lightLogo = p.logo ? p.logo.replace('theme/dark','theme/light') : '';
+    const logoHtml = lightLogo
+      ? `<div class="logo-box"><img src="${lightLogo}" alt="${p.name}" style="height:24px;max-width:100px;object-fit:contain;" onerror="this.parentNode.outerHTML='<div class=logo-initial>${p.name.slice(0,4)}</div>'"/></div>`
+      : `<div class="logo-initial">${p.name.slice(0,4)}</div>`;
     return `<div class="pcard flex flex-col gap-3">
       <div class="flex items-start justify-between gap-3">
-        <div class="logo-pill"><img src="${p.logo}" alt="${p.name}" style="height:26px;max-width:100px;object-fit:contain;" onerror="this.parentNode.innerHTML='<span style=color:#fff;font-weight:700;font-size:12px>${p.name}</span>'"/></div>
+        ${logoHtml}
         <div class="text-right flex-shrink-0">
           <div class="text-2xl font-black" style="color:${col}">${p.score!==null?p.score:'N/R'}</div>
           <span class="badge" style="background:${bd.bg};color:${bd.text}">${bd.label}</span>
         </div>
       </div>
+      <h3 class="font-black text-slate-900 text-base -mt-1">${p.name}</h3>
       <div class="score-track"><div class="score-fill" style="width:${pct}%;background:${col}"></div></div>
       <div class="flex flex-wrap gap-1.5">
-        <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold" style="background:#f1f5f9;color:#475569">${p.vol}</span>
-        <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold" style="background:#eff6ff;color:#2563eb">${p.target.slice(0,46)}${p.target.length>46?'...':''}</span>
+        <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:#f1f5f9;color:#475569">${p.vol}</span>
+        <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:#eff6ff;color:#2563eb">${p.target.slice(0,50)}${p.target.length>50?'...':''}</span>
       </div>
       <p class="text-slate-400 text-xs leading-relaxed">${p.btype}</p>
       <details>
@@ -295,9 +309,9 @@ function renderCards() {
           <div><p class="font-bold text-red-500 mb-1.5">Cons</p><ul class="text-slate-600 space-y-1">${listItems(p.cons)}</ul></div>
           <div><p class="font-bold text-blue-600 mb-1.5">Pricing</p><p class="text-slate-600 leading-relaxed">${p.price||'Contact for pricing'}</p></div>
           <div class="flex flex-wrap gap-3 pt-1">
-            ${p.web?`<a href="${p.web}" target="_blank" class="text-blue-600 hover:underline font-semibold">Website</a>`:''}
-            ${p.pp?`<a href="${p.pp}" target="_blank" class="text-blue-600 hover:underline font-semibold">Pricing</a>`:''}
-            ${p.kyc?`<a href="${p.kyc}" target="_blank" class="text-blue-600 hover:underline font-semibold">KYC Docs</a>`:''}
+            ${p.web?`<a href="${p.web}" target="_blank" class="text-blue-600 hover:underline font-semibold">Website &rarr;</a>`:''}
+            ${p.pp?`<a href="${p.pp}" target="_blank" class="text-blue-600 hover:underline font-semibold">Pricing &rarr;</a>`:''}
+            ${p.kyc?`<a href="${p.kyc}" target="_blank" class="text-blue-600 hover:underline font-semibold">KYC Docs &rarr;</a>`:''}
           </div>
         </div>
       </details>

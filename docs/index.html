@@ -147,17 +147,19 @@
 
     <span class="badge-pill mb-6 inline-block">Payment Provider Intelligence</span>
 
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-4">
-      Find the best payment<br/>partner for
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6">
+      Find the right payment partner<br/>for your business
     </h1>
 
     <!-- TYPEWRITER -->
-    <div class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-8 min-h-[1.3em] flex items-center justify-center">
-      <span class="typewriter" id="typewriter"></span><span class="cursor"></span>
+    <div class="mb-8 flex items-center justify-center">
+      <span class="text-2xl sm:text-3xl font-black leading-tight flex items-center">
+        <span class="typewriter" id="typewriter"></span><span class="cursor"></span>
+      </span>
     </div>
 
     <p class="text-slate-500 text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-      13+ payment providers independently scored, compared, and matched to your business — all in one place.
+      50+ payment providers independently scored, compared, and matched to your business — all in one place.
     </p>
 
     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
@@ -240,11 +242,12 @@
 <script>
 // ── TYPEWRITER ────────────────────────────────────────────────────────────────
 const WORDS = [
-  "Foreign Exchange",
-  "ACH Payments",
   "Stablecoins",
-  "Point of Sale (POS)",
+  "Cross-border Payments",
+  "Foreign Exchange",
+  "ETFs / ACH",
   "Wallets",
+  "Point of Sale (POS)",
 ];
 const el = document.getElementById("typewriter");
 let wi = 0, ci = 0, deleting = false;

@@ -338,14 +338,5 @@ type();
 // If user clicked "Find My Match", dashboard.html reads sessionStorage on load
 // and auto-switches to the match tab.
 </script>
-<script>
-document.fonts.ready.then(function(){
-  document.querySelectorAll('.logo-prefix').forEach(function(prefix){
-    var dot = prefix.closest('svg').querySelector('.logo-dot');
-    var x = parseFloat(prefix.closest('text').getAttribute('x') || 16);
-    dot.setAttribute('cx', x + prefix.getComputedTextLength() + prefix.nextElementSibling.getComputedTextLength() / 2);
-  });
-});
-</script>
 </body>
 </html>

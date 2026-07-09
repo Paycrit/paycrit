@@ -10,6 +10,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
+  .pc-pay{color:#0B2D5E;}
+  .pc-crit{color:#00B4A2;}
   body { background: #ffffff; color: #1e293b; }
   .tab-active   { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 700; }
   .tab-inactive { border-bottom: 2px solid transparent; color: #64748b; font-weight: 500; }
@@ -45,12 +48,7 @@
 <!-- NAV -->
 <nav class="bg-white border-b border-slate-100 sticky top-0 z-40">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-2.5 no-underline">
-      <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-        <span class="text-white font-black text-sm">P</span>
-      </div>
-      <span class="font-black text-slate-900 text-lg tracking-tight">Paycrit</span>
-    </a>
+    <a href="index.html" class="paycrit-logo" aria-label="Paycrit home"><span class="pc-pay">Pay</span><span class="pc-crit">crit</span></a>
     <div class="flex items-center gap-4">
       <a href="dashboard.html" class="text-blue-600 text-sm font-semibold">Compare</a>
       <a href="services.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Services</a>
@@ -426,5 +424,14 @@ renderCards();
   </div>
 </footer>
 
+<script>
+document.fonts.ready.then(function(){
+  document.querySelectorAll('.logo-prefix').forEach(function(prefix){
+    var dot = prefix.closest('svg').querySelector('.logo-dot');
+    var x = parseFloat(prefix.closest('text').getAttribute('x') || 16);
+    dot.setAttribute('cx', x + prefix.getComputedTextLength() + prefix.nextElementSibling.getComputedTextLength() / 2);
+  });
+});
+</script>
 </body>
 </html>

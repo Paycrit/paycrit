@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Paycrit - Managed Services &amp; Pricing</title>
+<title>Paycrit - Services (Preview)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
+  /* ── Brand tokens ──────────────────────────────────────────────────────── */
   :root {
     --navy:       #0B2D5E;
     --navy-dark:  #091F42;
@@ -16,74 +17,115 @@
     --teal-light: #E0F5F3;
     --teal-mid:   #80D9D1;
   }
-  h1 { letter-spacing: -1.5px; }
-  h2 { letter-spacing: -0.75px; }
-  h3 { letter-spacing: -0.5px; }
 
+  /* ── Base ──────────────────────────────────────────────────────────────── */
   * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
-  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
-  .pc-pay{color:#0B2D5E;}
-  .pc-crit{color:#00B4A2;}
   body { background: #f8fafc; color: #1e293b; }
 
+  /* ── Typography — tight like the logo ─────────────────────────────────── */
+  h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
+  h2 { font-weight: 800; letter-spacing: -0.75px; }
+  h3 { font-weight: 800; letter-spacing: -0.5px; }
+
+  /* ── Logo ──────────────────────────────────────────────────────────────── */
+  .paycrit-logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    text-decoration: none; line-height: 1; display: inline-flex; align-items: center; }
+  .pc-pay  { color: var(--navy); }
+  .pc-crit { color: var(--teal); }
+
+  /* ── Hero ──────────────────────────────────────────────────────────────── */
+  .hero-bg {
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #f8fafc 70%);
+  }
+
+  /* ── Badge pill ─────────────────────────────────────────────────────────── */
+  .badge-pill {
+    display: inline-flex; align-items: center;
+    background: var(--teal-light); color: var(--teal-dark);
+    font-size: 11px; font-weight: 800;
+    padding: 4px 14px; border-radius: 99px;
+    border: 1px solid var(--teal-mid);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ── Buttons ────────────────────────────────────────────────────────────── */
   .btn-primary {
-    background: var(--navy); color: #fff; font-weight: 700; letter-spacing:-0.2px;
+    background: var(--navy); color: #fff; font-weight: 700; letter-spacing: -0.2px;
     padding: 14px 32px; border-radius: 12px; font-size: 15px;
     transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
     display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    cursor: pointer;
   }
   .btn-primary:hover {
     background: var(--navy-dark);
     box-shadow: 0 4px 20px rgba(11,45,94,0.35);
     transform: translateY(-1px);
   }
+  .btn-outline {
+    display: block; width: 100%; text-align: center;
+    padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px;
+    border: 2px solid #e2e8f0; color: #334155;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--teal); color: var(--teal); background: var(--teal-light);
+  }
 
+  /* ── Pricing cards ──────────────────────────────────────────────────────── */
   .tier-card {
     background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px;
     padding: 36px 32px; transition: box-shadow 0.2s, border-color 0.2s;
   }
+  .tier-card:hover { box-shadow: 0 8px 40px rgba(0,180,162,0.10); }
   .tier-card.featured {
     border-color: var(--teal);
     box-shadow: 0 0 0 4px rgba(0,180,162,0.08);
   }
-  .tier-card:hover { box-shadow: 0 8px 40px rgba(0,180,162,0.12); }
+  .tier-card.featured:hover { box-shadow: 0 8px 40px rgba(0,180,162,0.18); }
 
+  /* ── Check items ────────────────────────────────────────────────────────── */
   .check-item {
     display: flex; align-items: flex-start; gap: 10px;
     font-size: 14px; color: #334155; margin-bottom: 10px;
   }
   .check-icon {
-    width: 18px; height: 18px; border-radius: 50%;
+    width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px; font-size: 10px;
+    margin-top: 1px; font-size: 10px;
   }
   .check-green { background: #dcfce7; color: #16a34a; }
   .check-teal  { background: var(--teal-light); color: var(--teal-dark); }
 
+  /* ── Callout box ────────────────────────────────────────────────────────── */
+  .callout {
+    background: var(--teal-light); border: 1px solid var(--teal-mid);
+    border-radius: 12px; padding: 14px 16px;
+    font-size: 14px; color: #0B4A44;
+  }
+
+  /* ── Benefit cards ──────────────────────────────────────────────────────── */
   .benefit-card {
-    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
-    padding: 24px; transition: box-shadow 0.2s, border-color 0.2s;
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;
+    transition: box-shadow 0.2s, border-color 0.2s;
   }
   .benefit-card:hover { box-shadow: 0 4px 24px rgba(0,180,162,0.10); border-color: var(--teal-mid); }
 
+  /* ── Form ───────────────────────────────────────────────────────────────── */
+  .form-label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
   .form-input {
     width: 100%; border: 1.5px solid #e2e8f0; border-radius: 10px;
     padding: 11px 14px; font-size: 14px; color: #1e293b;
-    background: #fff; transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none; font-family: inherit;
+    background: #fff; outline: none; font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
   .form-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,180,162,0.12); }
-  .form-label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
 
-  .badge-pill {
-    display: inline-flex; align-items: center;
-    background: var(--teal-light); color: var(--teal-dark); font-size: 11px; font-weight: 800;
-    padding: 4px 12px; border-radius: 99px; border: 1px solid var(--teal-mid);
-    letter-spacing: 0.08em; text-transform: uppercase;
+  /* ── Footer icon ────────────────────────────────────────────────────────── */
+  .footer-icon {
+    width: 24px; height: 24px; background: var(--navy);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
   }
-
-  .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #f8fafc 70%); }
-  .footer-icon { width:24px; height:24px; background:var(--navy); border-radius:6px; display:flex; align-items:center; justify-content:center; }
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -91,11 +133,13 @@
 <!-- NAV -->
 <nav class="bg-white border-b border-slate-100 sticky top-0 z-40">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="paycrit-logo" aria-label="Paycrit home"><span class="pc-pay">Pay</span><span class="pc-crit">crit</span></a>
+    <a href="index.html" class="paycrit-logo" aria-label="Paycrit home">
+      <span class="pc-pay">Pay</span><span class="pc-crit">crit</span>
+    </a>
     <div class="flex items-center gap-4">
       <a href="dashboard.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Compare</a>
       <a href="services.html" class="text-sm font-semibold" style="color:var(--teal)">Services</a>
-      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="padding:9px 20px;font-size:13px;">Find My Match</a>
+      <a href="dashboard.html" class="btn-primary" style="padding:9px 20px;font-size:13px;">Find My Match</a>
     </div>
   </div>
 </nav>
@@ -104,7 +148,7 @@
 <section class="hero-bg px-6 py-16 sm:py-20 text-center">
   <div class="max-w-3xl mx-auto">
     <span class="badge-pill mb-5 inline-block">Pricing &amp; Services</span>
-    <h1 class="text-4xl sm:text-5xl font-black text-slate-900 leading-tight mb-4">
+    <h1 class="text-4xl sm:text-5xl text-slate-900 mb-4">
       Transparent pricing.<br/>No hidden catches.
     </h1>
     <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed">
@@ -117,7 +161,7 @@
 <section class="px-6 py-14 bg-white border-t border-slate-100">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-10">
-      <h2 class="text-2xl sm:text-3xl font-black text-slate-900">Choose your plan</h2>
+      <h2 class="text-2xl sm:text-3xl text-slate-900">Choose your plan</h2>
       <p class="text-slate-500 text-sm mt-2">No subscriptions. No lock-in. Pay only when you need expert help.</p>
     </div>
 
@@ -133,41 +177,16 @@
           </div>
           <p class="text-slate-500 text-sm">Everything you need to research and compare payment providers yourself — no sign-up required.</p>
         </div>
-
         <div class="space-y-1 mb-8">
-          <div class="check-item">
-            <span class="check-icon check-green">&#10003;</span>
-            <span><strong>Provider directory</strong> — search &amp; filter 13+ payment providers</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-green">&#10003;</span>
-            <span><strong>Recommendation quiz</strong> — 3 questions, instant ranked results</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-green">&#10003;</span>
-            <span><strong>Paycrit scores</strong> — independent 0-5 ratings across all providers</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-green">&#10003;</span>
-            <span><strong>Best practices blog</strong> — guides on rates, chargebacks, compliance</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-green">&#10003;</span>
-            <span><strong>Use case breakdowns</strong> — which provider wins for your business type</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-green">&#10003;</span>
-            <span><strong>Side-by-side comparisons</strong> — fee structures, features, limits</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-green">&#10003;</span>
-            <span><strong>Daily updated data</strong> — rates and info refreshed automatically</span>
-          </div>
+          <div class="check-item"><span class="check-icon check-green">&#10003;</span><span><strong>Provider directory</strong> — search &amp; filter 13+ payment providers</span></div>
+          <div class="check-item"><span class="check-icon check-green">&#10003;</span><span><strong>Recommendation quiz</strong> — 3 questions, instant ranked results</span></div>
+          <div class="check-item"><span class="check-icon check-green">&#10003;</span><span><strong>Paycrit scores</strong> — independent 0-5 ratings across all providers</span></div>
+          <div class="check-item"><span class="check-icon check-green">&#10003;</span><span><strong>Best practices blog</strong> — guides on rates, chargebacks, compliance</span></div>
+          <div class="check-item"><span class="check-icon check-green">&#10003;</span><span><strong>Use case breakdowns</strong> — which provider wins for your business type</span></div>
+          <div class="check-item"><span class="check-icon check-green">&#10003;</span><span><strong>Side-by-side comparisons</strong> — fee structures, features, limits</span></div>
+          <div class="check-item"><span class="check-icon check-green">&#10003;</span><span><strong>Daily updated data</strong> — rates and info refreshed automatically</span></div>
         </div>
-
-        <a href="dashboard.html" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 font-bold text-slate-700 transition-all text-sm" onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)';this.style.background='var(--teal-light)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#334155';this.style.background=''">
-          Start for free &rarr;
-        </a>
+        <a href="dashboard.html" class="btn-outline">Start for free &rarr;</a>
       </div>
 
       <!-- MANAGED SERVICES TIER -->
@@ -177,7 +196,7 @@
         </div>
 
         <div class="mb-6">
-          <p class="text-xs font-bold uppercase tracking-wider" style="color:var(--teal)" mb-2">Managed Services</p>
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--teal)">Managed Services</p>
           <div class="flex items-end gap-2 mb-3">
             <span class="text-5xl font-black text-slate-900">$70</span>
             <span class="text-slate-400 text-sm font-medium mb-2">/ hour</span>
@@ -185,56 +204,24 @@
           <p class="text-slate-500 text-sm">We become your dedicated payment operations team. You focus on sales — we handle the rest.</p>
         </div>
 
-        <!-- WHAT'S INCLUDED -->
         <div class="space-y-1 mb-8">
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>1-on-1 expert consultation calls</strong> — dedicated payment specialist, no bots</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>Full account management</strong> — we liaise with payment providers on your behalf</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>KYC &amp; documentation support</strong> — we prep, review, and submit compliance docs so approvals go smoothly</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>Additional charges recovery</strong> — we identify and dispute wrongful fees, reserve holds, and unexplained deductions</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>Tax &amp; compliance guidance</strong> — cross-border VAT, sales tax setup, PCI-DSS readiness</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>Rate negotiation</strong> — we push providers for better interchange and MDR rates as your volume grows</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>Chargeback &amp; dispute defense</strong> — evidence prep and submission to protect your win rate</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>Proactive account health monitoring</strong> — early warning on risk flags before they become account freezes</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>Multi-currency &amp; FX optimization</strong> — advice on routing and settlement to reduce conversion losses</span>
-          </div>
-          <div class="check-item">
-            <span class="check-icon check-teal">&#10003;</span>
-            <span><strong>New provider onboarding</strong> — end-to-end setup so you go live fast with zero headaches</span>
-          </div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>1-on-1 expert consultation calls</strong> — dedicated payment specialist, no bots</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>Full account management</strong> — we liaise with payment providers on your behalf</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>KYC &amp; documentation support</strong> — we prep, review, and submit compliance docs</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>Additional charges recovery</strong> — we identify and dispute wrongful fees, reserve holds</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>Tax &amp; compliance guidance</strong> — cross-border VAT, sales tax setup, PCI-DSS readiness</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>Rate negotiation</strong> — we push providers for better interchange and MDR rates</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>Chargeback &amp; dispute defense</strong> — evidence prep and submission to protect your win rate</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>Proactive account health monitoring</strong> — early warning on risk flags</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>Multi-currency &amp; FX optimization</strong> — routing and settlement advice</span></div>
+          <div class="check-item"><span class="check-icon check-teal">&#10003;</span><span><strong>New provider onboarding</strong> — end-to-end setup so you go live fast</span></div>
         </div>
 
-        <!-- TRANSPARENCY CALLOUT -->
-        <div class="rounded-xl p-4 mb-6 text-sm" style="background:var(--teal-light);border:1px solid var(--teal-mid);color:#0B4A44;">
+        <div class="callout mb-6">
           <strong>Full transparency:</strong> We charge <strong>$70/hr</strong> for time spent. You'll always know exactly what we're working on. No retainers, no minimums, no surprise invoices.
         </div>
 
-        <a href="#contact" class="btn-primary w-full justify-center text-center block">
+        <a href="#contact" class="btn-primary w-full justify-center">
           Book a free intro call
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
@@ -244,69 +231,23 @@
   </div>
 </section>
 
-<!-- BENEFITS DEEP DIVE -->
+<!-- BENEFITS -->
 <section class="px-6 py-16 bg-slate-50 border-t border-slate-100">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-12">
-      <h2 class="text-2xl sm:text-3xl font-black text-slate-900">What managed services actually means</h2>
+      <h2 class="text-2xl sm:text-3xl text-slate-900">What managed services actually means</h2>
       <p class="text-slate-500 text-sm mt-2 max-w-lg mx-auto">We've seen every payment provider problem in the book. Here's how we solve them.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128222;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">Expert Consultation</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Direct access to a payment specialist who knows merchant acquiring, acquiring banks, and processor politics inside out. Real advice, not generic FAQ answers.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128196;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">KYC &amp; Documentation</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">KYC rejections are the #1 reason sellers lose access. We prepare your business documents, review them against provider requirements, and follow up on approvals so nothing falls through the cracks.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128176;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">Fee Recovery</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Payment providers charge more than they should — rolling reserves, unexplained fees, incorrect interchange categories. We audit your statements and dispute every penny that's wrongly deducted.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128200;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">Rate Negotiation</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Most sellers accept the default rate sheet. We don't. We use your processing volume data to negotiate MDR and interchange rates — savings that compound every month at scale.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128737;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">Chargeback Defense</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">A chargeback ratio above 1% puts your whole account at risk. We prepare evidence packages, manage timelines, and respond to disputes — keeping your ratio clean and your account safe.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#127759;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">Tax &amp; Compliance</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Cross-border VAT, sales tax nexus, PCI-DSS scope, AML requirements — we map out your obligations and help you stay compliant without over-engineering your stack.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128269;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">Account Health Monitoring</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">We watch for early risk flags — velocity spikes, refund ratio creep, fraud alerts — and act before your provider does. No more waking up to a frozen account with no warning.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128257;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">Multi-Currency Optimization</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">FX margins quietly eat into revenue on every cross-border transaction. We analyze your settlement currencies and routing to find the cheapest path for your money.</p>
-      </div>
-
-      <div class="benefit-card">
-        <div class="text-2xl mb-3">&#128640;</div>
-        <h3 class="font-black text-slate-900 text-base mb-2">New Provider Onboarding</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Switching or adding providers is painful. We handle the entire process — application, integration guidance, testing, and go-live — so you're processing without the weeks of back-and-forth.</p>
-      </div>
-
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128222;</div><h3 class="text-base mb-2 text-slate-900">Expert Consultation</h3><p class="text-slate-500 text-sm leading-relaxed">Direct access to a payment specialist who knows merchant acquiring, acquiring banks, and processor politics inside out.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128196;</div><h3 class="text-base mb-2 text-slate-900">KYC &amp; Documentation</h3><p class="text-slate-500 text-sm leading-relaxed">KYC rejections are the #1 reason sellers lose access. We prepare your documents, review them against requirements, and follow up so nothing falls through the cracks.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128176;</div><h3 class="text-base mb-2 text-slate-900">Fee Recovery</h3><p class="text-slate-500 text-sm leading-relaxed">Payment providers charge more than they should. We audit your statements and dispute every penny that's wrongly deducted.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128200;</div><h3 class="text-base mb-2 text-slate-900">Rate Negotiation</h3><p class="text-slate-500 text-sm leading-relaxed">Most sellers accept the default rate sheet. We use your volume data to negotiate MDR and interchange rates — savings that compound every month.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128737;</div><h3 class="text-base mb-2 text-slate-900">Chargeback Defense</h3><p class="text-slate-500 text-sm leading-relaxed">A chargeback ratio above 1% risks your whole account. We prepare evidence packages, manage timelines, and respond to disputes.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#127759;</div><h3 class="text-base mb-2 text-slate-900">Tax &amp; Compliance</h3><p class="text-slate-500 text-sm leading-relaxed">Cross-border VAT, sales tax nexus, PCI-DSS scope, AML requirements — we map your obligations and keep you compliant.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128269;</div><h3 class="text-base mb-2 text-slate-900">Account Health Monitoring</h3><p class="text-slate-500 text-sm leading-relaxed">We watch for early risk flags and act before your provider does. No more waking up to a frozen account with no warning.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128257;</div><h3 class="text-base mb-2 text-slate-900">Multi-Currency Optimization</h3><p class="text-slate-500 text-sm leading-relaxed">FX margins quietly eat into revenue on every cross-border transaction. We find the cheapest settlement path for your money.</p></div>
+      <div class="benefit-card"><div class="text-2xl mb-3">&#128640;</div><h3 class="text-base mb-2 text-slate-900">New Provider Onboarding</h3><p class="text-slate-500 text-sm leading-relaxed">We handle the entire process — application, integration guidance, testing, and go-live — so you're processing without weeks of back-and-forth.</p></div>
     </div>
   </div>
 </section>
@@ -316,22 +257,13 @@
   <div class="max-w-2xl mx-auto">
     <div class="text-center mb-10">
       <span class="badge-pill mb-4 inline-block">Get in Touch</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-slate-900">Book your free discovery call</h2>
+      <h2 class="text-2xl sm:text-3xl text-slate-900">Book your free discovery call</h2>
       <p class="text-slate-500 text-sm mt-3 max-w-md mx-auto">
         Tell us a bit about your business. We'll reach out within 1 business day to schedule a free 30-minute call — no pitch, just honest advice.
       </p>
     </div>
 
-    <!-- NOTE: Replace the action URL below with your own Formspree endpoint.
-         Sign up free at https://formspree.io → New Form → copy your endpoint.
-         Format: https://formspree.io/f/YOUR_FORM_ID
-    -->
-    <form
-      action="https://formspree.io/f/YOUR_FORM_ID"
-      method="POST"
-      id="contact-form"
-      class="space-y-5"
-    >
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form" class="space-y-5">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label class="form-label" for="name">Full Name *</label>
@@ -342,7 +274,6 @@
           <input class="form-input" type="email" id="email" name="email" required placeholder="jane@yourbrand.com"/>
         </div>
       </div>
-
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label class="form-label" for="business">Business / Store Name *</label>
@@ -360,12 +291,10 @@
           </select>
         </div>
       </div>
-
       <div>
         <label class="form-label" for="provider">Current Payment Provider(s)</label>
         <input class="form-input" type="text" id="provider" name="provider" placeholder="e.g. Stripe, PayPal, Airwallex..."/>
       </div>
-
       <div>
         <label class="form-label" for="help">What do you need help with? *</label>
         <select class="form-input" id="help" name="help" required>
@@ -381,7 +310,6 @@
           <option>Something else</option>
         </select>
       </div>
-
       <div>
         <label class="form-label" for="message">Anything else we should know?</label>
         <textarea class="form-input" id="message" name="message" rows="4" placeholder="Describe your situation, goals, or any specific challenges you're facing..."></textarea>
@@ -394,18 +322,11 @@
 
       <p class="text-xs text-slate-400 text-center">
         By submitting this form you agree to our
-        <a href="terms.html" class="underline" style="color:var(--teal)">Terms of Service</a> and
-        <a href="privacy.html" class="underline" style="color:var(--teal)">Privacy Policy</a>.
+        <a href="terms.html" class="underline font-semibold" style="color:var(--teal)">Terms of Service</a> and
+        <a href="privacy.html" class="underline font-semibold" style="color:var(--teal)">Privacy Policy</a>.
         We never spam or sell your data.
       </p>
     </form>
-
-    <!-- SUCCESS / ERROR STATE -->
-    <div id="form-success" class="hidden text-center py-10">
-      <div class="text-5xl mb-4">&#128640;</div>
-      <h3 class="font-black text-slate-900 text-xl mb-2">Got it! We'll be in touch.</h3>
-      <p class="text-slate-500 text-sm">Expect a reply within 1 business day. Check your spam folder just in case.</p>
-    </div>
   </div>
 </section>
 
@@ -431,19 +352,12 @@
 </footer>
 
 <script>
-// Smooth scroll to contact section
 document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
   link.addEventListener('click', function(e) {
     e.preventDefault();
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   });
 });
-
-// Show success state after Formspree redirect (hash-based)
-if (window.location.hash === '#success') {
-  document.getElementById('contact-form').classList.add('hidden');
-  document.getElementById('form-success').classList.remove('hidden');
-}
 </script>
 </body>
 </html>

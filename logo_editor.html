@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Paycrit Logo Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: sans-serif; background: #f1f5f9; display: flex; flex-direction: column; align-items: center; padding: 40px; gap: 32px; }
+    .card { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); width: 600px; }
+    h2 { margin: 0 0 24px; font-size: 16px; color: #475569; text-transform: uppercase; letter-spacing: 1px; }
+    .preview { display: flex; align-items: center; justify-content: center; padding: 32px; background: #f8fafc; border-radius: 12px; margin-bottom: 32px; border: 1px solid #e2e8f0; }
+    .preview.dark { background: #0B2D5E; }
+    label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px; }
+    .row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    input[type=range] { flex: 1; accent-color: #0B2D5E; }
+    input[type=number] { width: 70px; padding: 6px 10px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; font-weight: 700; text-align: center; }
+    .output { background: #f8fafc; border-radius: 12px; padding: 20px; font-family: monospace; font-size: 13px; color: #334155; border: 1px solid #e2e8f0; white-space: pre; }
+    button { background: #0B2D5E; color: white; border: none; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    button:hover { background: #0e3a77; }
+    .hint { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Logo Editor — White Background</h2>
+  <div class="preview" id="preview-white">
+    <svg id="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 90" width="260" height="90">
+      <text id="logo-text" style="font-family:'Poppins',sans-serif;font-weight:700;font-size:60px;fill:#0B2D5E;" x="16" y="72">Paycrit</text>
+      <circle id="dot" cx="209.5" cy="33" r="6.5" fill="#00B4A2"/>
+    </svg>
+  </div>
+
+  <div class="preview dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 90" width="260" height="90">
+      <text style="font-family:'Poppins',sans-serif;font-weight:700;font-size:60px;fill:#ffffff;" x="16" y="72">Paycrit</text>
+      <circle id="dot-dark" cx="209.5" cy="33" r="6.5" fill="#00B4A2"/>
+    </svg>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Adjust Dot Position</h2>
+
+  <label>Dot X (cx)</label>
+  <div class="row">
+    <input type="range" id="cx" min="100" max="260" step="0.5" value="209.5"/>
+    <input type="number" id="cx-num" min="100" max="260" step="0.5" value="209.5"/>
+  </div>
+
+  <label>Dot Y (cy)</label>
+  <div class="row">
+    <input type="range" id="cy" min="1" max="80" step="0.5" value="33"/>
+    <input type="number" id="cy-num" min="1" max="80" step="0.5" value="33"/>
+  </div>
+
+  <label>Dot Size (r)</label>
+  <div class="row">
+    <input type="range" id="r" min="2" max="12" step="0.5" value="6.5"/>
+    <input type="number" id="r-num" min="2" max="12" step="0.5" value="6.5"/>
+  </div>
+
+  <p class="hint">Drag the sliders until the dot sits perfectly above the "i". Then send me the 3 numbers below.</p>
+
+  <div class="output" id="values">cx: 209.5   cy: 33   r: 6.5</div>
+</div>
+
+<script>
+  const dot     = document.getElementById('dot');
+  const dotDark = document.getElementById('dot-dark');
+  const out     = document.getElementById('values');
+
+  function sync(id, attr) {
+    const slider = document.getElementById(id);
+    const num    = document.getElementById(id + '-num');
+
+    function update(val) {
+      slider.value = val;
+      num.value    = val;
+      const cx = document.getElementById('cx').value;
+      const cy = document.getElementById('cy').value;
+      const r  = document.getElementById('r').value;
+      dot.setAttribute(attr, val);
+      dotDark.setAttribute(attr, val);
+      out.textContent = `cx: ${cx}   cy: ${cy}   r: ${r}`;
+    }
+
+    slider.addEventListener('input', () => update(slider.value));
+    num.addEventListener('input',    () => update(num.value));
+  }
+
+  sync('cx', 'cx');
+  sync('cy', 'cy');
+  sync('r',  'r');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paycrit Logo Options</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #f1f5f9; padding: 40px 24px; }
+    h1 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; margin-bottom: 32px; }
+
+    .grid { display: flex; flex-direction: column; gap: 16px; max-width: 680px; }
+
+    .row {
+      background: white; border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .row .num { font-size: 11px; font-weight: 700; color: #cbd5e1; min-width: 24px; }
+    .row .logo-wrap { flex: 1; display: flex; align-items: center; justify-content: center; gap: 40px; }
+    .row .desc { font-size: 11px; color: #94a3b8; min-width: 120px; text-align: right; }
+
+    /* ── Option 1: Two-tone Pay|crit ── */
+    .opt1 { font-size: 22px; font-weight: 800; line-height: 1; letter-spacing: -0.5px; }
+    .opt1 .pay { color: #0B2D5E; }
+    .opt1 .crit { color: #00B4A2; }
+
+    /* ── Option 2: Icon circle + name ── */
+    .opt2 { display: inline-flex; align-items: center; gap: 10px; }
+    .opt2 .icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #0B2D5E; display: flex; align-items: center; justify-content: center;
+    }
+    .opt2 .icon span { color: white; font-size: 14px; font-weight: 900; }
+    .opt2 .name { font-size: 20px; font-weight: 800; color: #0B2D5E; letter-spacing: -0.5px; }
+
+    /* ── Option 3: Rounded square monogram + name ── */
+    .opt3 { display: inline-flex; align-items: center; gap: 10px; }
+    .opt3 .box {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: #00B4A2; display: flex; align-items: center; justify-content: center;
+    }
+    .opt3 .box span { color: white; font-size: 15px; font-weight: 900; }
+    .opt3 .name { font-size: 20px; font-weight: 800; color: #0B2D5E; letter-spacing: -0.5px; }
+
+    /* ── Option 4: Name + teal dot after ── */
+    .opt4 { display: inline-flex; align-items: center; gap: 5px; }
+    .opt4 .name { font-size: 22px; font-weight: 800; color: #0B2D5E; letter-spacing: -0.5px; }
+    .opt4 .dot { width: 7px; height: 7px; border-radius: 50%; background: #00B4A2; margin-bottom: 14px; }
+
+    /* ── Option 5: All caps small with teal bar ── */
+    .opt5 { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .opt5 .name { font-size: 20px; font-weight: 900; color: #0B2D5E; letter-spacing: 2px; text-transform: uppercase; }
+    .opt5 .bar { height: 3px; width: 100%; background: #00B4A2; border-radius: 2px; }
+
+    /* ── Option 6: Pay bold + crit light ── */
+    .opt6 { font-size: 22px; letter-spacing: -0.5px; line-height: 1; }
+    .opt6 .pay  { font-weight: 900; color: #0B2D5E; }
+    .opt6 .crit { font-weight: 400; color: #0B2D5E; }
+
+    /* ── Option 7: Slash separator ── */
+    .opt7 { display: inline-flex; align-items: center; gap: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+    .opt7 .pay  { color: #0B2D5E; }
+    .opt7 .slash { color: #00B4A2; font-weight: 900; margin: 0 2px; }
+    .opt7 .crit { color: #0B2D5E; }
+
+    /* dark variant column */
+    .dark-bg {
+      background: #0B2D5E; border-radius: 10px;
+      padding: 12px 20px; display:inline-flex; align-items:center;
+    }
+    .dark-bg .opt1 .pay  { color: #fff; }
+    .dark-bg .opt1 .crit { color: #00B4A2; }
+    .dark-bg .opt2 .name,
+    .dark-bg .opt3 .name,
+    .dark-bg .opt4 .name,
+    .dark-bg .opt5 .name,
+    .dark-bg .opt6 .pay,
+    .dark-bg .opt6 .crit,
+    .dark-bg .opt7 .pay,
+    .dark-bg .opt7 .crit { color: #fff; }
+  </style>
+</head>
+<body>
+
+<h1>Paycrit Logo Options — pick a number</h1>
+
+<div class="grid">
+
+  <!-- 1 -->
+  <div class="row">
+    <span class="num">1</span>
+    <div class="logo-wrap">
+      <div class="opt1"><span class="pay">Pay</span><span class="crit">crit</span></div>
+      <div class="dark-bg"><div class="opt1"><span class="pay">Pay</span><span class="crit">crit</span></div></div>
+    </div>
+    <span class="desc">Two-tone colour split</span>
+  </div>
+
+  <!-- 2 -->
+  <div class="row">
+    <span class="num">2</span>
+    <div class="logo-wrap">
+      <div class="opt2">
+        <div class="icon"><span>P</span></div>
+        <span class="name">Paycrit</span>
+      </div>
+      <div class="dark-bg">
+        <div class="opt2">
+          <div class="icon"><span>P</span></div>
+          <span class="name">Paycrit</span>
+        </div>
+      </div>
+    </div>
+    <span class="desc">Navy circle + name</span>
+  </div>
+
+  <!-- 3 -->
+  <div class="row">
+    <span class="num">3</span>
+    <div class="logo-wrap">
+      <div class="opt3">
+        <div class="box"><span>P</span></div>
+        <span class="name">Paycrit</span>
+      </div>
+      <div class="dark-bg">
+        <div class="opt3">
+          <div class="box"><span>P</span></div>
+          <span class="name">Paycrit</span>
+        </div>
+      </div>
+    </div>
+    <span class="desc">Teal square + name</span>
+  </div>
+
+  <!-- 4 -->
+  <div class="row">
+    <span class="num">4</span>
+    <div class="logo-wrap">
+      <div class="opt4">
+        <span class="name">Paycrit</span>
+        <span class="dot"></span>
+      </div>
+      <div class="dark-bg">
+        <div class="opt4">
+          <span class="name" style="color:#fff;">Paycrit</span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+    <span class="desc">Name + teal superscript dot</span>
+  </div>
+
+  <!-- 5 -->
+  <div class="row">
+    <span class="num">5</span>
+    <div class="logo-wrap">
+      <div class="opt5">
+        <span class="name">Paycrit</span>
+        <span class="bar"></span>
+      </div>
+      <div class="dark-bg">
+        <div class="opt5">
+          <span class="name" style="color:#fff;">Paycrit</span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </div>
+    <span class="desc">Caps + teal underbar</span>
+  </div>
+
+  <!-- 6 -->
+  <div class="row">
+    <span class="num">6</span>
+    <div class="logo-wrap">
+      <div class="opt6"><span class="pay">Pay</span><span class="crit">crit</span></div>
+      <div class="dark-bg"><div class="opt6"><span class="pay">Pay</span><span class="crit">crit</span></div></div>
+    </div>
+    <span class="desc">Bold / regular weight split</span>
+  </div>
+
+  <!-- 7 -->
+  <div class="row">
+    <span class="num">7</span>
+    <div class="logo-wrap">
+      <div class="opt7">
+        <span class="pay">Pay</span><span class="slash">/</span><span class="crit">crit</span>
+      </div>
+      <div class="dark-bg">
+        <div class="opt7">
+          <span class="pay">Pay</span><span class="slash">/</span><span class="crit">crit</span>
+        </div>
+      </div>
+    </div>
+    <span class="desc">Slash accent separator</span>
+  </div>
+
+</div>
+
+</body>
+</html>

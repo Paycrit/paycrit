@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logo Preview - Paycrit Navbar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+    body { background: #f1f5f9; }
+    .btn-primary {
+      background: #2563eb; color: #fff; font-weight: 700;
+      padding: 9px 20px; border-radius: 12px; font-size: 13px;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+  </style>
+</head>
+<body class="p-10 flex flex-col gap-10">
+
+  <div>
+    <label class="block mb-3">BEFORE - current logo</label>
+    <nav class="bg-white border-b border-slate-100 rounded-xl shadow-sm">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-black text-sm">P</span>
+          </div>
+          <span class="font-black text-slate-900 text-lg tracking-tight">Paycrit</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="text-slate-500 text-sm font-semibold">Compare</a>
+          <a href="#" class="text-slate-500 text-sm font-semibold">Services</a>
+          <a href="#" class="btn-primary">Find My Match</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div>
+    <label class="block mb-3">AFTER - new SVG logo</label>
+    <nav class="bg-white border-b border-slate-100 rounded-xl shadow-sm">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="docs/index.html" class="flex items-center" aria-label="Paycrit home">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 90" height="38" aria-hidden="true">
+            <text style="font-family:'Poppins',sans-serif;font-weight:700;font-size:60px;fill:#0B2D5E;" x="16" y="72"><tspan class="logo-prefix">Paycr</tspan><tspan class="logo-i">&#305;</tspan>t</text>
+            <circle class="logo-dot" cx="188" cy="34" r="5" fill="#00B4A2"/>
+          </svg>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="#" class="text-slate-500 text-sm font-semibold">Compare</a>
+          <a href="#" class="text-slate-500 text-sm font-semibold">Services</a>
+          <a href="#" class="btn-primary">Find My Match</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div>
+    <label class="block mb-3">AFTER - dark background variant</label>
+    <nav class="border-b border-blue-900 rounded-xl shadow-sm" style="background:#0B2D5E;">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="docs/index.html" class="flex items-center" aria-label="Paycrit home">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 90" height="38" aria-hidden="true">
+            <text style="font-family:'Poppins',sans-serif;font-weight:700;font-size:60px;fill:#ffffff;" x="16" y="72"><tspan class="logo-prefix">Paycr</tspan><tspan class="logo-i">&#305;</tspan>t</text>
+            <circle class="logo-dot" cx="188" cy="34" r="5" fill="#00B4A2"/>
+          </svg>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="#" class="text-blue-200 text-sm font-semibold">Compare</a>
+          <a href="#" class="text-blue-200 text-sm font-semibold">Services</a>
+          <a href="#" class="btn-primary">Find My Match</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <p class="text-slate-400 text-sm">
+    Happy with the logo? Say <strong>"go"</strong> and I'll update all pages and push to GitHub.
+  </p>
+
+<script>
+// Wait for Poppins to fully load, then pin the dot to the exact centre of the dotless-i
+document.fonts.ready.then(() => {
+  document.querySelectorAll('.logo-prefix').forEach(prefix => {
+    const iSpan = prefix.nextElementSibling; // logo-i tspan
+    const dot   = iSpan.closest('svg').querySelector('.logo-dot');
+    const svgTextX = parseFloat(prefix.closest('text').getAttribute('x') || 16);
+    const prefixLen = prefix.getComputedTextLength();
+    const iLen      = iSpan.getComputedTextLength();
+    dot.setAttribute('cx', svgTextX + prefixLen + iLen / 2);
+  });
+});
+</script>
+
+</body>
+</html>

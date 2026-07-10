@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Paycrit - Find Your Payment Partner</title>
+<title>Paycrit — Homepage Preview (New Theme)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -20,20 +20,44 @@
 
   * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
 
-  /* ── Typatch logo tight spacing ── */
-  h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
-  h2 { font-weight: 800; letter-spacing: -0.75px; }
-  h3 { font-weight: 800; letter-spacing: -0.5px; }
+  /* ── Typography — match logo: Inter 800, tight spacing ─────────────── */
+  h1 {
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+  }
+  h2 {
+    font-weight: 800;
+    letter-spacing: -0.75px;
+  }
+  h3 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .nav-link {
+    letter-spacing: -0.2px;
+  }
+  .btn-primary, .btn-secondary {
+    letter-spacing: -0.2px;
+  }
 
-  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
-  .pc-pay{color:var(--navy);}
-  .pc-crit{color:var(--teal);}
+  /* ── Logo ──────────────────────────────────────────────────────────── */
+  .paycrit-logo {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    text-decoration: none; line-height: 1;
+    display: inline-flex; align-items: center;
+  }
+  .pc-pay  { color: var(--navy); }
+  .pc-crit { color: var(--teal); }
+
   body { background: #ffffff; color: #1e293b; }
 
+  /* ── Hero ──────────────────────────────────────────────────────────── */
   .hero-bg {
     background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #ffffff 70%);
   }
 
+  /* ── Typewriter ────────────────────────────────────────────────────── */
   .typewriter-wrap { display: inline-block; position: relative; }
   .typewriter {
     color: var(--teal);
@@ -43,15 +67,14 @@
     white-space: nowrap;
   }
   .cursor {
-    display: inline-block;
-    width: 3px; height: 1em;
-    background: var(--teal);
-    margin-left: 3px; vertical-align: middle;
-    border-radius: 2px;
+    display: inline-block; width: 3px; height: 1em;
+    background: var(--teal); margin-left: 3px;
+    vertical-align: middle; border-radius: 2px;
     animation: blink 0.9s step-end infinite;
   }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
+  /* ── Feature cards ─────────────────────────────────────────────────── */
   .feature-card {
     background: #fff;
     border: 1px solid #e2e8f0;
@@ -65,13 +88,16 @@
     transform: translateY(-2px);
   }
   .feature-card a { color: var(--teal); }
+  .feature-card a:hover { text-decoration: underline; }
 
+  /* ── Buttons ────────────────────────────────────────────────────────── */
   .btn-primary {
     background: var(--navy);
-    color: #fff; font-weight: 700; letter-spacing: -0.2px;
+    color: #fff; font-weight: 700;
     padding: 14px 32px; border-radius: 12px; font-size: 15px;
     transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none;
   }
   .btn-primary:hover {
     background: var(--navy-dark);
@@ -79,11 +105,12 @@
     transform: translateY(-1px);
   }
   .btn-secondary {
-    background: #fff; color: #1e293b; font-weight: 700; letter-spacing: -0.2px;
+    background: #fff; color: #1e293b; font-weight: 700;
     padding: 14px 32px; border-radius: 12px; font-size: 15px;
     border: 1.5px solid #e2e8f0;
     transition: border-color 0.15s, background 0.15s, transform 0.1s;
-    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none;
   }
   .btn-secondary:hover {
     border-color: var(--teal);
@@ -91,35 +118,32 @@
     transform: translateY(-1px);
   }
 
+  /* ── Badge pill ─────────────────────────────────────────────────────── */
   .badge-pill {
     display: inline-flex; align-items: center;
-    background: var(--teal-light); color: var(--teal-dark);
+    background: var(--teal-light);
+    color: var(--teal-dark);
     font-size: 11px; font-weight: 800;
     padding: 4px 12px; border-radius: 99px;
     border: 1px solid var(--teal-mid);
     letter-spacing: 0.08em; text-transform: uppercase;
   }
 
+  /* ── Marquee ────────────────────────────────────────────────────────── */
   .marquee-outer {
     overflow: hidden;
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
   .marquee-track {
-    display: flex;
-    gap: 52px;
-    align-items: center;
-    animation: marquee 40s linear infinite;
-    width: max-content;
+    display: flex; gap: 52px; align-items: center;
+    animation: marquee 40s linear infinite; width: max-content;
   }
   .marquee-track:hover { animation-play-state: paused; }
   .marquee-track img {
-    height: 22px;
-    object-fit: contain;
-    opacity: 0.4;
-    filter: grayscale(1);
-    transition: opacity 0.2s;
-    flex-shrink: 0;
+    height: 22px; object-fit: contain;
+    opacity: 0.4; filter: grayscale(1);
+    transition: opacity 0.2s; flex-shrink: 0;
   }
   .marquee-track img:hover { opacity: 0.75; }
   @keyframes marquee {
@@ -127,17 +151,24 @@
     100% { transform: translateX(-50%); }
   }
 
+  /* ── Icon wrap ──────────────────────────────────────────────────────── */
   .icon-wrap {
-    width: 44px; height: 44px;
-    border-radius: 12px;
+    width: 44px; height: 44px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    margin-bottom: 16px;
+    font-size: 20px; margin-bottom: 16px;
   }
+  .icon-wrap.teal  { background: var(--teal-light); }
+  .icon-wrap.green { background: #ecfdf5; }
+  .icon-wrap.amber { background: #fffbeb; }
+
+  /* ── "Why Paycrit exists" accent ────────────────────────────────────── */
   .section-label { color: var(--teal); }
+
+  /* ── Footer icon ────────────────────────────────────────────────────── */
   .footer-icon {
-    width: 24px; height: 24px; background: var(--navy);
-    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px;
+    background: var(--navy); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
   }
 </style>
 </head>
@@ -146,11 +177,13 @@
 <!-- NAV -->
 <nav class="bg-white border-b border-slate-100 sticky top-0 z-40">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="paycrit-logo" aria-label="Paycrit home"><span class="pc-pay">Pay</span><span class="pc-crit">crit</span></a>
+    <a href="#" class="paycrit-logo" aria-label="Paycrit home">
+      <span class="pc-pay">Pay</span><span class="pc-crit">crit</span>
+    </a>
     <div class="flex items-center gap-4">
-      <a href="dashboard.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Compare</a>
-      <a href="services.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Services</a>
-      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="padding:9px 20px;font-size:13px;letter-spacing:-0.1px;">Find My Match</a>
+      <a href="#" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Compare</a>
+      <a href="#" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Services</a>
+      <a href="#" class="btn-primary" style="padding:9px 20px;font-size:13px;">Find My Match</a>
     </div>
   </div>
 </nav>
@@ -177,20 +210,28 @@
     </p>
 
     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-      <a href="dashboard.html" class="btn-primary">
+      <a href="#" class="btn-primary">
         Compare Providers
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
       </a>
-      <a href="dashboard.html" onclick="sessionStorage.setItem('tab','match')" class="btn-secondary">
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      <a href="#" class="btn-secondary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
         Find My Match
       </a>
     </div>
 
     <!-- TRUST LINE -->
     <div class="mt-6 flex items-center justify-center gap-2">
-      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-      <span class="text-slate-400 text-xs font-semibold tracking-wide">Built by an independent researcher — no provider pays us, no referrals, built for merchants</span>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+      </svg>
+      <span class="text-slate-400 text-xs font-semibold tracking-wide">
+        Built by an independent researcher — no provider pays us, no referrals, built for merchants
+      </span>
     </div>
 
     <!-- LOGO STRIP MARQUEE -->
@@ -215,7 +256,7 @@
           <img src="https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Paypal"/>
           <img src="https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Ebury"/>
           <img src="https://cdn.brandfetch.io/id1R4rkJXF/w/1024/h/280/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Zyla"/>
-          <!-- Set 2 (duplicate for seamless loop) -->
+          <!-- Set 2 (seamless loop) -->
           <img src="https://cdn.brandfetch.io/id_rWxLMsA/w/985/h/256/theme/dark/logo.webp?c=1dxbfHSJFAPEGdCLU4o5B" alt="Aspire"/>
           <img src="https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Airwallex"/>
           <img src="https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldfirst"/>
@@ -247,22 +288,22 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
       <div class="feature-card">
-        <div class="icon-wrap" style="background:var(--teal-light)">&#128202;</div>
+        <div class="icon-wrap teal">&#128202;</div>
         <h3 class="font-black text-slate-900 text-lg mb-2">Compare Providers</h3>
         <p class="text-slate-500 text-sm leading-relaxed">Side-by-side comparison of 13+ providers. Filter by business type, volume tier, and Paycrit score.</p>
-        <a href="dashboard.html" class="inline-block mt-4 text-sm font-bold hover:underline">View all providers &rarr;</a>
+        <a href="#" class="inline-block mt-4 text-sm font-bold">View all providers &rarr;</a>
       </div>
       <div class="feature-card">
-        <div class="icon-wrap bg-emerald-50">&#127919;</div>
+        <div class="icon-wrap green">&#127919;</div>
         <h3 class="font-black text-slate-900 text-lg mb-2">Find Your Match</h3>
         <p class="text-slate-500 text-sm leading-relaxed">Answer 3 questions about your business and get a ranked list of providers scored to your exact needs.</p>
-        <a href="dashboard.html" onclick="sessionStorage.setItem('tab','match')" class="inline-block mt-4 text-sm font-bold hover:underline">Start matching &rarr;</a>
+        <a href="#" class="inline-block mt-4 text-sm font-bold">Start matching &rarr;</a>
       </div>
       <div class="feature-card">
-        <div class="icon-wrap bg-amber-50">&#9889;</div>
+        <div class="icon-wrap amber">&#9889;</div>
         <h3 class="font-black text-slate-900 text-lg mb-2">Live Paycrit Scores</h3>
         <p class="text-slate-500 text-sm leading-relaxed">Every provider is independently rated 0-5 by Paycrit across pricing, transparency, and merchant experience.</p>
-        <a href="dashboard.html" class="inline-block mt-4 text-sm font-bold hover:underline">See leaderboard &rarr;</a>
+        <a href="#" class="inline-block mt-4 text-sm font-bold">See leaderboard &rarr;</a>
       </div>
     </div>
   </div>
@@ -271,7 +312,7 @@
 <!-- WHY PAYCRIT -->
 <section class="bg-white border-t border-slate-100 px-6 py-16 sm:py-20">
   <div class="max-w-2xl mx-auto text-center">
-    <span class="text-xs font-bold uppercase tracking-widest mb-4 inline-block section-label">Why Paycrit exists</span>
+    <span class="text-xs font-bold uppercase tracking-widest section-label mb-4 inline-block">Why Paycrit exists</span>
     <p class="text-slate-700 text-xl sm:text-2xl font-semibold leading-relaxed">
       &ldquo;Paycrit was built by a payments researcher tired of watching merchants get blindsided by the wrong provider. No VC money. No provider partnerships. Just honest research.&rdquo;
     </p>
@@ -293,18 +334,17 @@
       <span class="font-black text-slate-700 text-sm">Paycrit</span>
     </div>
     <div class="flex items-center gap-5 text-xs text-slate-400">
-      <a href="dashboard.html" class="hover:text-slate-700 transition-colors">Compare</a>
-      <a href="services.html" class="hover:text-slate-700 transition-colors">Services</a>
-      <a href="blog.html" class="hover:text-slate-700 transition-colors">Blog</a>
-      <a href="terms.html" class="hover:text-slate-700 transition-colors">Terms</a>
-      <a href="privacy.html" class="hover:text-slate-700 transition-colors">Privacy</a>
+      <a href="#" class="hover:text-slate-700 transition-colors">Compare</a>
+      <a href="#" class="hover:text-slate-700 transition-colors">Services</a>
+      <a href="#" class="hover:text-slate-700 transition-colors">Blog</a>
+      <a href="#" class="hover:text-slate-700 transition-colors">Terms</a>
+      <a href="#" class="hover:text-slate-700 transition-colors">Privacy</a>
     </div>
     <p class="text-slate-400 text-xs">Paycrit is an independent comparison service.</p>
   </div>
 </footer>
 
 <script>
-// ── TYPEWRITER ────────────────────────────────────────────────────────────────
 const WORDS = [
   "Stablecoins",
   "Cross-border Payments",
@@ -333,10 +373,6 @@ function type() {
 }
 
 type();
-
-// ── TAB HANDOFF TO DASHBOARD ──────────────────────────────────────────────────
-// If user clicked "Find My Match", dashboard.html reads sessionStorage on load
-// and auto-switches to the match tab.
 </script>
 </body>
 </html>

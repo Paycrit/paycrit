@@ -9,38 +9,50 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
+  :root {
+    --navy:       #0B2D5E;
+    --navy-dark:  #091F42;
+    --teal:       #00B4A2;
+    --teal-dark:  #009E8E;
+    --teal-light: #E0F5F3;
+    --teal-mid:   #80D9D1;
+  }
   * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+  h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
+  h2 { font-weight: 800; letter-spacing: -0.75px; }
+  h3 { font-weight: 800; letter-spacing: -0.5px; }
   .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
   .pc-pay{color:#0B2D5E;}
   .pc-crit{color:#00B4A2;}
   body { background: #ffffff; color: #1e293b; }
-  .tab-active   { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 700; }
+  .tab-active   { border-bottom: 2px solid var(--teal); color: var(--navy); font-weight: 700; }
   .tab-inactive { border-bottom: 2px solid transparent; color: #64748b; font-weight: 500; }
   .tab-inactive:hover { color: #1e293b; }
   .chip { border-radius: 9999px; padding: 5px 14px; font-size: 12px; font-weight: 600; border: 1.5px solid; cursor: pointer; transition: all 0.15s; }
-  .chip-on  { background: #2563eb; color: #fff; border-color: #2563eb; }
+  .chip-on  { background: var(--navy); color: #fff; border-color: var(--navy); }
   .chip-off { background: #fff; color: #475569; border-color: #e2e8f0; }
-  .chip-off:hover { border-color: #2563eb; color: #2563eb; }
+  .chip-off:hover { border-color: var(--teal); color: var(--teal); }
   .pcard { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 24px; transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s; }
-  .pcard:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.09); border-color: #bfdbfe; transform: translateY(-2px); }
+  .pcard:hover { box-shadow: 0 8px 32px rgba(0,180,162,0.10); border-color: var(--teal-mid); transform: translateY(-2px); }
   .provider-logo { height: 28px; max-width: 110px; object-fit: contain; display: block; }
   .logo-text { font-weight: 800; font-size: 13px; color: #1e293b; letter-spacing: -0.01em; }
   .score-track { height: 6px; border-radius: 99px; background: #f1f5f9; overflow: hidden; }
   .score-fill  { height: 100%; border-radius: 99px; }
   .opt { border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; background: #fff; cursor: pointer; transition: all 0.15s; width: 100%; text-align:left; display:flex; align-items:center; gap:12px; }
-  .opt:hover { border-color: #93c5fd; background: #f0f7ff; }
-  .opt.picked { border-color: #2563eb; background: #eff6ff; color: #1d4ed8; font-weight: 600; }
+  .opt:hover { border-color: var(--teal-mid); background: var(--teal-light); }
+  .opt.picked { border-color: var(--navy); background: #E8EEF7; color: var(--navy); font-weight: 600; }
   .opt-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #cbd5e1; flex-shrink:0; transition: all 0.15s; }
-  .opt.picked .opt-radio { background: #2563eb; border-color: #2563eb; }
+  .opt.picked .opt-radio { background: var(--teal); border-color: var(--teal); }
   details summary { cursor:pointer; list-style:none; }
   details summary::-webkit-details-marker { display:none; }
   details[open] .chevron { transform: rotate(90deg); }
   .chevron { transition: transform 0.2s; display:inline-block; }
-  .match-fill { height: 5px; border-radius: 99px; background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%); }
-  .step-active { background: #2563eb; color: #fff; }
+  .match-fill { height: 5px; border-radius: 99px; background: linear-gradient(90deg, var(--navy) 0%, var(--teal) 100%); }
+  .step-active { background: var(--navy); color: #fff; }
   .step-idle   { background: #f1f5f9; color: #94a3b8; }
   .connector   { height: 1.5px; background: #e2e8f0; flex:1; }
   .badge { display:inline-flex; align-items:center; border-radius:99px; font-size:11px; font-weight:700; padding:2px 9px; }
+  .footer-icon { width:24px; height:24px; background:var(--navy); border-radius:6px; display:flex; align-items:center; justify-content:center; }
 </style>
 </head>
 <body class="min-h-screen">
@@ -50,19 +62,19 @@
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="index.html" class="paycrit-logo" aria-label="Paycrit home"><span class="pc-pay">Pay</span><span class="pc-crit">crit</span></a>
     <div class="flex items-center gap-4">
-      <a href="dashboard.html" class="text-blue-600 text-sm font-semibold">Compare</a>
+      <a href="dashboard.html" style="color:var(--teal)" class="text-sm font-semibold">Compare</a>
       <a href="services.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Services</a>
-      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="bg-blue-600 text-white font-bold py-2 px-5 rounded-xl text-sm hover:bg-blue-700 transition-colors">Find My Match</a>
+      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" style="background:var(--navy);color:#fff;font-weight:700;padding:8px 20px;border-radius:10px;font-size:13px;text-decoration:none;">Find My Match</a>
     </div>
   </div>
 </nav>
 
 <!-- PAGE HERO -->
-<section class="bg-white border-b border-slate-100 px-6 py-10 text-center" style="background:radial-gradient(ellipse 80% 60% at 50% -10%, #dbeafe 0%, #ffffff 70%)">
+<section class="bg-white border-b border-slate-100 px-6 py-10 text-center" style="background:radial-gradient(ellipse 80% 60% at 50% -10%, #E0F5F3 0%, #ffffff 70%)">
   <div class="max-w-2xl mx-auto">
-    <span class="inline-flex items-center bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-100 uppercase tracking-wider mb-4">Payment Provider Intelligence</span>
+    <span class="inline-flex items-center text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4" style="background:var(--teal-light);color:var(--teal-dark);border:1px solid var(--teal-mid);">Payment Provider Intelligence</span>
     <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Compare &amp; Find Your Match</h1>
-    <p class="text-slate-500 text-base max-w-lg mx-auto">16 providers independently scored &bull; Updated 09 Jul 2026</p>
+    <p class="text-slate-500 text-base max-w-lg mx-auto">16 providers independently scored &bull; Updated 10 Jul 2026</p>
   </div>
 </section>
 
@@ -84,7 +96,7 @@
   <!-- STATS -->
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
     <div class="bg-white rounded-2xl border border-slate-100 p-5">
-      <div class="text-3xl font-black text-blue-600" id="stat-count">--</div>
+      <div class="text-3xl font-black" style="color:var(--navy)" id="stat-count">--</div>
       <div class="text-slate-500 text-xs font-medium mt-1">Providers Rated</div>
     </div>
     <div class="bg-white rounded-2xl border border-slate-100 p-5">
@@ -96,7 +108,7 @@
       <div class="text-slate-500 text-xs font-medium mt-1">Avg. Score</div>
     </div>
     <div class="bg-white rounded-2xl border border-slate-100 p-5">
-      <div class="text-3xl font-black text-blue-600">3</div>
+      <div class="text-3xl font-black" style="color:var(--navy)">3</div>
       <div class="text-slate-500 text-xs font-medium mt-1">Volume Tiers</div>
     </div>
   </div>
@@ -154,7 +166,7 @@
 
   <div id="q1" class="question-step">
     <div class="bg-white border border-slate-100 rounded-2xl p-6">
-      <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Question 1 of 3</p>
+      <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:var(--teal)">Question 1 of 3</p>
       <h2 class="text-xl font-black text-slate-900 mb-5">What is your business type?</h2>
       <div class="flex flex-col gap-2.5">
         <button onclick="pick('q1','fx')"     class="opt"><span class="opt-radio"></span>FX</button>
@@ -164,14 +176,14 @@
         <button onclick="pick('q1','global')" class="opt"><span class="opt-radio"></span>Global Payments</button>
       </div>
       <div class="mt-6 flex justify-end">
-        <button onclick="goNext(1)" id="btn-1" disabled class="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all">Next &rarr;</button>
+        <button onclick="goNext(1)" id="btn-1" disabled class="disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all" style="background:var(--navy)">Next &rarr;</button>
       </div>
     </div>
   </div>
 
   <div id="q2" class="question-step hidden">
     <div class="bg-white border border-slate-100 rounded-2xl p-6">
-      <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Question 2 of 3</p>
+      <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:var(--teal)">Question 2 of 3</p>
       <h2 class="text-xl font-black text-slate-900 mb-5">Monthly processing volume?</h2>
       <div class="flex flex-col gap-2.5">
         <button onclick="pick('q2','5k')"   class="opt"><span class="opt-radio"></span>$5k &ndash; $25k</button>
@@ -180,14 +192,14 @@
       </div>
       <div class="mt-6 flex justify-between">
         <button onclick="goBack(2)" class="text-slate-400 hover:text-slate-700 text-sm px-2 py-2 transition-all">&larr; Back</button>
-        <button onclick="goNext(2)" id="btn-2" disabled class="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all">Next &rarr;</button>
+        <button onclick="goNext(2)" id="btn-2" disabled class="disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all" style="background:var(--navy)">Next &rarr;</button>
       </div>
     </div>
   </div>
 
   <div id="q3" class="question-step hidden">
     <div class="bg-white border border-slate-100 rounded-2xl p-6">
-      <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Question 3 of 3</p>
+      <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:var(--teal)">Question 3 of 3</p>
       <h2 class="text-xl font-black text-slate-900 mb-2">How much of your revenue comes from international customers?</h2>
       <div class="flex flex-col gap-2.5 mt-5">
         <button onclick="pick('q3','domestic')" class="opt"><span class="opt-radio"></span>Domestic only</button>
@@ -195,7 +207,7 @@
       </div>
       <div class="mt-6 flex justify-between">
         <button onclick="goBack(3)" class="text-slate-400 hover:text-slate-700 text-sm px-2 py-2 transition-all">&larr; Back</button>
-        <button onclick="showResults()" id="btn-3" disabled class="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all">See My Matches</button>
+        <button onclick="showResults()" id="btn-3" disabled class="disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all" style="background:var(--navy)">See My Matches</button>
       </div>
     </div>
   </div>
@@ -206,7 +218,7 @@
         <h2 class="text-xl font-black text-slate-900">Your Top Matches</h2>
         <p class="text-slate-400 text-xs mt-0.5">Ranked by compatibility with your answers</p>
       </div>
-      <button onclick="resetMatch()" class="text-blue-600 hover:text-blue-800 text-sm font-semibold transition-all">Start over</button>
+      <button onclick="resetMatch()" class="text-sm font-semibold transition-all" style="color:var(--teal)">Start over</button>
     </div>
     <div id="results-list" class="flex flex-col gap-3"></div>
   </div>
@@ -221,14 +233,14 @@ const typeKeys = { fx:['fx','foreign exchange','currency'], card:['card'], walle
 function scoreColor(s) {
   if (s===null) return '#94a3b8';
   if (s>=4.5) return '#16a34a';
-  if (s>=3.5) return '#2563eb';
+  if (s>=3.5) return '#0B2D5E';
   if (s>=2.5) return '#f59e0b';
   return '#ef4444';
 }
 function scoreBadge(s) {
   if (s===null) return {label:'Not Rated',bg:'#f1f5f9',text:'#64748b'};
   if (s>=4.5) return {label:'Excellent',bg:'#dcfce7',text:'#15803d'};
-  if (s>=3.5) return {label:'Good',bg:'#dbeafe',text:'#1d4ed8'};
+  if (s>=3.5) return {label:'Good',bg:'#E0F5F3',text:'#009E8E'};
   if (s>=2.5) return {label:'Average',bg:'#fef3c7',text:'#92400e'};
   return {label:'Below Avg',bg:'#fee2e2',text:'#991b1b'};
 }
@@ -295,7 +307,7 @@ function renderCards() {
       <div class="score-track"><div class="score-fill" style="width:${pct}%;background:${col}"></div></div>
       <div class="flex flex-wrap gap-1.5">
         <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:#f1f5f9;color:#475569">${p.vol}</span>
-        <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:#eff6ff;color:#2563eb">${p.target.slice(0,50)}${p.target.length>50?'...':''}</span>
+          <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:#E0F5F3;color:#0B2D5E">${p.target.slice(0,50)}${p.target.length>50?'...':''}</span>
       </div>
       <p class="text-slate-400 text-xs leading-relaxed">${p.btype}</p>
       <details>
@@ -305,11 +317,11 @@ function renderCards() {
         <div class="mt-3 pt-3 border-t border-slate-100 flex flex-col gap-3 text-xs">
           <div><p class="font-bold text-emerald-600 mb-1.5">Pros</p><ul class="text-slate-600 space-y-1">${listItems(p.pros)}</ul></div>
           <div><p class="font-bold text-red-500 mb-1.5">Cons</p><ul class="text-slate-600 space-y-1">${listItems(p.cons)}</ul></div>
-          <div><p class="font-bold text-blue-600 mb-1.5">Pricing</p><p class="text-slate-600 leading-relaxed">${p.price||'Contact for pricing'}</p></div>
+          <div><p class="font-bold mb-1.5" style="color:var(--teal)">Pricing</p><p class="text-slate-600 leading-relaxed">${p.price||'Contact for pricing'}</p></div>
           <div class="flex flex-wrap gap-3 pt-1">
-            ${p.web?`<a href="${p.web}" target="_blank" class="text-blue-600 hover:underline font-semibold">Website &rarr;</a>`:''}
-            ${p.pp?`<a href="${p.pp}" target="_blank" class="text-blue-600 hover:underline font-semibold">Pricing &rarr;</a>`:''}
-            ${p.kyc?`<a href="${p.kyc}" target="_blank" class="text-blue-600 hover:underline font-semibold">KYC Docs &rarr;</a>`:''}
+            ${p.web?`<a href="${p.web}" target="_blank" class="font-semibold hover:underline" style="color:var(--teal)">Website &rarr;</a>`:''}
+            ${p.pp?`<a href="${p.pp}" target="_blank" class="font-semibold hover:underline" style="color:var(--teal)">Pricing &rarr;</a>`:''}
+            ${p.kyc?`<a href="${p.kyc}" target="_blank" class="font-semibold hover:underline" style="color:var(--teal)">KYC Docs &rarr;</a>`:''}
           </div>
         </div>
       </details>
@@ -359,22 +371,22 @@ function showResults(){
         <div class="flex-1 min-w-0">
           <div class="flex flex-wrap items-center gap-2">
             <span class="font-black text-slate-900 text-sm">${p.name}</span>
-            ${i===0?'<span class="badge" style="background:#dbeafe;color:#1d4ed8">Best Match</span>':''}
+            ${i===0?`<span class="badge" style="background:var(--teal-light);color:var(--teal-dark)">Best Match</span>`:''}
             ${i===1?'<span class="badge" style="background:#f1f5f9;color:#475569">2nd Match</span>':''}
           </div>
           <p class="text-xs text-slate-400 mt-0.5">Paycrit: <strong style="color:${col}">${p.score!==null?p.score+'/5.0':'N/R'}</strong></p>
         </div>
         <div class="text-right flex-shrink-0">
-          <div class="text-xl font-black text-blue-600">${pct}%</div>
+          <div class="text-xl font-black" style="color:var(--navy)">${pct}%</div>
           <div class="text-xs text-slate-400">match</div>
         </div>
       </div>
       <div class="score-track mb-3"><div class="match-fill" style="width:${pct}%"></div></div>
       <p class="text-xs text-slate-500 mb-2">${p.target}</p>
       <div class="flex flex-wrap gap-3">
-        ${p.web?`<a href="${p.web}" target="_blank" class="text-xs text-blue-600 hover:underline font-semibold">Website</a>`:''}
-        ${p.pp?`<a href="${p.pp}" target="_blank" class="text-xs text-blue-600 hover:underline font-semibold">Pricing</a>`:''}
-        ${p.kyc?`<a href="${p.kyc}" target="_blank" class="text-xs text-blue-600 hover:underline font-semibold">KYC Docs</a>`:''}
+        ${p.web?`<a href="${p.web}" target="_blank" class="text-xs font-semibold hover:underline" style="color:var(--teal)">Website</a>`:''}
+        ${p.pp?`<a href="${p.pp}" target="_blank" class="text-xs font-semibold hover:underline" style="color:var(--teal)">Pricing</a>`:''}
+        ${p.kyc?`<a href="${p.kyc}" target="_blank" class="text-xs font-semibold hover:underline" style="color:var(--teal)">KYC Docs</a>`:''}
       </div>
     </div>`;
   }).join('');
@@ -408,7 +420,7 @@ renderCards();
 <footer class="bg-white border-t border-slate-100 px-6 py-8 mt-10">
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-2">
-      <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
+      <div class="footer-icon">
         <span class="text-white font-black text-xs">P</span>
       </div>
       <span class="font-black text-slate-700 text-sm">Paycrit</span>

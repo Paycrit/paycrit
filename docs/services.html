@@ -8,6 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
+  :root {
+    --navy:       #0B2D5E;
+    --navy-dark:  #091F42;
+    --teal:       #00B4A2;
+    --teal-dark:  #009E8E;
+    --teal-light: #E0F5F3;
+    --teal-mid:   #80D9D1;
+  }
+  h1 { letter-spacing: -1.5px; }
+  h2 { letter-spacing: -0.75px; }
+  h3 { letter-spacing: -0.5px; }
+
   * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
   .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
   .pc-pay{color:#0B2D5E;}
@@ -15,14 +27,14 @@
   body { background: #f8fafc; color: #1e293b; }
 
   .btn-primary {
-    background: #2563eb; color: #fff; font-weight: 700;
+    background: var(--navy); color: #fff; font-weight: 700; letter-spacing:-0.2px;
     padding: 14px 32px; border-radius: 12px; font-size: 15px;
     transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
     display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
   }
   .btn-primary:hover {
-    background: #1d4ed8;
-    box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+    background: var(--navy-dark);
+    box-shadow: 0 4px 20px rgba(11,45,94,0.35);
     transform: translateY(-1px);
   }
 
@@ -31,10 +43,10 @@
     padding: 36px 32px; transition: box-shadow 0.2s, border-color 0.2s;
   }
   .tier-card.featured {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+    border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(0,180,162,0.08);
   }
-  .tier-card:hover { box-shadow: 0 8px 40px rgba(37,99,235,0.10); }
+  .tier-card:hover { box-shadow: 0 8px 40px rgba(0,180,162,0.12); }
 
   .check-item {
     display: flex; align-items: flex-start; gap: 10px;
@@ -46,13 +58,13 @@
     flex-shrink: 0; margin-top: 1px; font-size: 10px;
   }
   .check-green { background: #dcfce7; color: #16a34a; }
-  .check-blue  { background: #dbeafe; color: #2563eb; }
+  .check-teal  { background: #dbeafe; color: #2563eb; }
 
   .benefit-card {
     background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
     padding: 24px; transition: box-shadow 0.2s, border-color 0.2s;
   }
-  .benefit-card:hover { box-shadow: 0 4px 24px rgba(37,99,235,0.08); border-color: #bfdbfe; }
+  .benefit-card:hover { box-shadow: 0 4px 24px rgba(0,180,162,0.10); border-color: var(--teal-mid); }
 
   .form-input {
     width: 100%; border: 1.5px solid #e2e8f0; border-radius: 10px;
@@ -60,17 +72,18 @@
     background: #fff; transition: border-color 0.15s, box-shadow 0.15s;
     outline: none; font-family: inherit;
   }
-  .form-input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.10); }
+  .form-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,180,162,0.12); }
   .form-label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
 
   .badge-pill {
     display: inline-flex; align-items: center;
-    background: #eff6ff; color: #2563eb; font-size: 12px; font-weight: 700;
-    padding: 4px 12px; border-radius: 99px; border: 1px solid #bfdbfe;
-    letter-spacing: 0.04em; text-transform: uppercase;
+    background: var(--teal-light); color: var(--teal-dark); font-size: 11px; font-weight: 800;
+    padding: 4px 12px; border-radius: 99px; border: 1px solid var(--teal-mid);
+    letter-spacing: 0.08em; text-transform: uppercase;
   }
 
-  .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% -10%, #dbeafe 0%, #f8fafc 70%); }
+  .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #f8fafc 70%); }
+  .footer-icon { width:24px; height:24px; background:var(--navy); border-radius:6px; display:flex; align-items:center; justify-content:center; }
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -81,7 +94,7 @@
     <a href="index.html" class="paycrit-logo" aria-label="Paycrit home"><span class="pc-pay">Pay</span><span class="pc-crit">crit</span></a>
     <div class="flex items-center gap-4">
       <a href="dashboard.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Compare</a>
-      <a href="services.html" class="text-blue-600 text-sm font-semibold">Services</a>
+      <a href="services.html" class="text-sm font-semibold" style="color:var(--teal)">Services</a>
       <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="padding:9px 20px;font-size:13px;">Find My Match</a>
     </div>
   </div>
@@ -152,7 +165,7 @@
           </div>
         </div>
 
-        <a href="dashboard.html" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 font-bold text-slate-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm">
+        <a href="dashboard.html" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 font-bold text-slate-700 transition-all text-sm" onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)';this.style.background='var(--teal-light)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#334155';this.style.background=''">
           Start for free &rarr;
         </a>
       </div>
@@ -160,11 +173,11 @@
       <!-- MANAGED SERVICES TIER -->
       <div class="tier-card featured relative">
         <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-          <span class="bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full tracking-wide">MOST POPULAR</span>
+          <span class="text-white text-xs font-bold px-4 py-1 rounded-full tracking-wide" style="background:var(--navy)">MOST POPULAR</span>
         </div>
 
         <div class="mb-6">
-          <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">Managed Services</p>
+          <p class="text-xs font-bold uppercase tracking-wider" style="color:var(--teal)" mb-2">Managed Services</p>
           <div class="flex items-end gap-2 mb-3">
             <span class="text-5xl font-black text-slate-900">$70</span>
             <span class="text-slate-400 text-sm font-medium mb-2">/ hour</span>
@@ -175,49 +188,49 @@
         <!-- WHAT'S INCLUDED -->
         <div class="space-y-1 mb-8">
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>1-on-1 expert consultation calls</strong> — dedicated payment specialist, no bots</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>Full account management</strong> — we liaise with payment providers on your behalf</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>KYC &amp; documentation support</strong> — we prep, review, and submit compliance docs so approvals go smoothly</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>Additional charges recovery</strong> — we identify and dispute wrongful fees, reserve holds, and unexplained deductions</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>Tax &amp; compliance guidance</strong> — cross-border VAT, sales tax setup, PCI-DSS readiness</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>Rate negotiation</strong> — we push providers for better interchange and MDR rates as your volume grows</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>Chargeback &amp; dispute defense</strong> — evidence prep and submission to protect your win rate</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>Proactive account health monitoring</strong> — early warning on risk flags before they become account freezes</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>Multi-currency &amp; FX optimization</strong> — advice on routing and settlement to reduce conversion losses</span>
           </div>
           <div class="check-item">
-            <span class="check-icon check-blue">&#10003;</span>
+            <span class="check-icon check-teal">&#10003;</span>
             <span><strong>New provider onboarding</strong> — end-to-end setup so you go live fast with zero headaches</span>
           </div>
         </div>
 
         <!-- TRANSPARENCY CALLOUT -->
-        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 text-sm text-blue-800">
+        <div class="rounded-xl p-4 mb-6 text-sm" style="background:var(--teal-light);border:1px solid var(--teal-mid);color:#0B4A44;">
           <strong>Full transparency:</strong> We charge <strong>$70/hr</strong> for time spent. You'll always know exactly what we're working on. No retainers, no minimums, no surprise invoices.
         </div>
 
@@ -381,8 +394,8 @@
 
       <p class="text-xs text-slate-400 text-center">
         By submitting this form you agree to our
-        <a href="terms.html" class="underline hover:text-blue-600">Terms of Service</a> and
-        <a href="privacy.html" class="underline hover:text-blue-600">Privacy Policy</a>.
+        <a href="terms.html" class="underline" style="color:var(--teal)">Terms of Service</a> and
+        <a href="privacy.html" class="underline" style="color:var(--teal)">Privacy Policy</a>.
         We never spam or sell your data.
       </p>
     </form>
@@ -400,7 +413,7 @@
 <footer class="bg-white border-t border-slate-100 px-6 py-8">
   <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-2">
-      <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
+      <div class="footer-icon">
         <span class="text-white font-black text-xs">P</span>
       </div>
       <span class="font-black text-slate-700 text-sm">Paycrit</span>

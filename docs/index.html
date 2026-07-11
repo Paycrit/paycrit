@@ -135,6 +135,10 @@
     margin-bottom: 16px;
   }
   .section-label { color: var(--teal); }
+  .footer-icon {
+    width: 24px; height: 24px; background: var(--navy);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  }
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -282,6 +286,12 @@
 <!-- FOOTER -->
 <footer class="bg-white border-t border-slate-100 px-6 py-8">
   <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <div class="footer-icon">
+        <span class="text-white font-black text-xs">P</span>
+      </div>
+      <span class="font-black text-slate-700 text-sm">Paycrit</span>
+    </div>
     <div class="flex items-center gap-5 text-xs text-slate-400">
       <a href="dashboard.html" class="hover:text-slate-700 transition-colors">Compare</a>
       <a href="services.html" class="hover:text-slate-700 transition-colors">Services</a>

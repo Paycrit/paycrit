@@ -53,6 +53,15 @@ Add these three secrets:
 
 The workflow will then auto-refresh the site daily and on every push to main.
 
+## Notion weekly research pipeline
+
+Set up and push weekly Paycrit research topics into Notion:
+
+- Setup guide: `research/NOTION_SETUP.md`
+- Push script: `research/notion_push_topics.py`
+- CSV fallback: `research/export_topics_csv.py`
+- Sample payload: `research/data/paycrit_weekly_topics.sample.json`
+
 ## Project structure
 
 ```

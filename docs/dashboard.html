@@ -6,25 +6,12 @@
 <title>Paycrit - Payment Provider Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="paycrit.css"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-  :root {
-    --navy:       #0B2D5E;
-    --navy-dark:  #091F42;
-    --teal:       #00B4A2;
-    --teal-dark:  #009E8E;
-    --teal-light: #E0F5F3;
-    --teal-mid:   #80D9D1;
-  }
-  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
-  h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
-  h2 { font-weight: 800; letter-spacing: -0.75px; }
-  h3 { font-weight: 800; letter-spacing: -0.5px; }
-  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
-  .pc-pay{color:#0B2D5E;}
-  .pc-crit{color:#00B4A2;}
-  body { background: #ffffff; color: #1e293b; }
+  /* Page override — dashboard uses white background */
+  body { background: #ffffff; }
   .tab-active   { border-bottom: 2px solid var(--teal); color: var(--navy); font-weight: 700; }
   .tab-inactive { border-bottom: 2px solid transparent; color: #64748b; font-weight: 500; }
   .tab-inactive:hover { color: #1e293b; }

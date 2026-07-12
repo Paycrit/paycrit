@@ -11,44 +11,34 @@
 <meta property="og:url" content="https://paycrit.github.io/paycrit/blog/why-payment-providers-freeze-accounts.html"/>
 <link rel="canonical" href="https://paycrit.github.io/paycrit/blog/why-payment-providers-freeze-accounts.html"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../paycrit.css"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
-  .paycrit-logo{font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.3px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
-  .pc-pay{color:#0B2D5E;}
-  .pc-crit{color:#00B4A2;}
-  body { background: #f8fafc; color: #1e293b; }
+  
+  
+  
+  
+  
 
-  .prose h2 { font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-top: 2.25rem; margin-bottom: 0.6rem; }
-  .prose h3 { font-size: 1rem; font-weight: 700; color: #1e293b; margin-top: 1.5rem; margin-bottom: 0.4rem; }
-  .prose p  { font-size: 0.9375rem; color: #475569; line-height: 1.8; margin-bottom: 1rem; }
-  .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
-  .prose ul li { font-size: 0.9375rem; color: #475569; line-height: 1.8; margin-bottom: 0.3rem; }
-  .prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
-  .prose ol li { font-size: 0.9375rem; color: #475569; line-height: 1.8; margin-bottom: 0.3rem; }
-  .prose strong { color: #1e293b; font-weight: 700; }
-  .prose a { color: #2563eb; text-decoration: underline; }
-  .prose a:hover { color: #1d4ed8; }
+  .prose 
+  .prose 
+  
+  
+  
+  
+  
+  
+  
+  
 
-  .callout {
-    border-left: 3px solid #2563eb; background: #eff6ff;
-    border-radius: 0 12px 12px 0; padding: 14px 18px; margin: 1.5rem 0;
-  }
-  .callout p { color: #1e40af; margin-bottom: 0; font-size: 0.9rem; }
+  
+  
 
-  .warning-callout {
-    border-left: 3px solid #f59e0b; background: #fffbeb;
-    border-radius: 0 12px 12px 0; padding: 14px 18px; margin: 1.5rem 0;
-  }
-  .warning-callout p { color: #92400e; margin-bottom: 0; font-size: 0.9rem; }
+  
+  
 
-  .tag-pill {
-    display: inline-flex; align-items: center;
-    background: #eff6ff; color: #2563eb; font-size: 11px; font-weight: 700;
-    padding: 3px 10px; border-radius: 99px; border: 1px solid #bfdbfe;
-    letter-spacing: 0.03em; text-transform: uppercase;
-  }
+  
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -60,7 +50,7 @@
     <div class="flex items-center gap-4">
       <a href="../dashboard.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Compare</a>
       <a href="../services.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Services</a>
-      <a href="../dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="bg-blue-600 text-white font-bold py-2 px-5 rounded-xl text-sm hover:bg-blue-700 transition-colors">Find My Match</a>
+      <a href="../dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="text-white font-bold py-2 px-5 rounded-xl text-sm" style="background:var(--navy)">Find My Match</a>
     </div>
   </div>
 </nav>
@@ -178,14 +168,14 @@
     </div>
 
     <!-- CTA BOX -->
-    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 text-center mt-12">
+    <div class="rounded-2xl p-8 text-center mt-12" style="background:var(--teal-light);border:1px solid var(--teal-mid);">
       <h3 class="font-black text-slate-900 text-lg mb-2">Worried about your current payment provider?</h3>
       <p class="text-slate-500 text-sm mb-5 max-w-md mx-auto">Compare 13+ providers by KYC friendliness, account stability, and merchant experience — all independently scored by Paycrit.</p>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="../dashboard.html" class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white font-bold py-3 px-6 rounded-xl text-sm hover:bg-blue-700 transition-colors">
+        <a href="../dashboard.html" class="btn-primary justify-center">
           Compare Providers &rarr;
         </a>
-        <a href="../services.html#contact" class="inline-flex items-center justify-center gap-2 bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl text-sm hover:border-blue-500 hover:text-blue-600 transition-colors">
+        <a href="../services.html#contact" class="inline-flex items-center justify-center gap-2 bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl text-sm hover:border-teal-500 hover:text-teal-600 transition-colors">
           Talk to an expert
         </a>
       </div>

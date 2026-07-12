@@ -6,13 +6,35 @@
 <title>Paycrit - Find Your Payment Partner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="paycrit.css"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  /* Page override — index uses white background */
-  body { background: #ffffff; }
-  
+  :root {
+    --navy:       #0B2D5E;
+    --navy-dark:  #091F42;
+    --navy-light: #E8EEF7;
+    --teal:       #00B4A2;
+    --teal-dark:  #009E8E;
+    --teal-light: #E0F5F3;
+    --teal-mid:   #80D9D1;
+  }
 
+  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+  /* ── Typatch logo tight spacing ── */
+  h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
+  h2 { font-weight: 800; letter-spacing: -0.75px; }
+  h3 { font-weight: 800; letter-spacing: -0.5px; }
+
+  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
+  .pc-pay{color:var(--navy);}
+  .pc-crit{color:var(--teal);}
+  body { background: #ffffff; color: #1e293b; }
+
+  .hero-bg {
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #ffffff 70%);
+  }
+
+  .typewriter-wrap { display: inline-block; position: relative; }
   .typewriter {
     color: var(--teal);
     font-weight: 900;
@@ -44,6 +66,18 @@
   }
   .feature-card a { color: var(--teal); }
 
+  .btn-primary {
+    background: var(--navy);
+    color: #fff; font-weight: 700; letter-spacing: -0.2px;
+    padding: 14px 32px; border-radius: 12px; font-size: 15px;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  }
+  .btn-primary:hover {
+    background: var(--navy-dark);
+    box-shadow: 0 4px 20px rgba(11,45,94,0.35);
+    transform: translateY(-1px);
+  }
   .btn-secondary {
     background: #fff; color: #1e293b; font-weight: 700; letter-spacing: -0.2px;
     padding: 14px 32px; border-radius: 12px; font-size: 15px;
@@ -55,6 +89,15 @@
     border-color: var(--teal);
     background: var(--teal-light);
     transform: translateY(-1px);
+  }
+
+  .badge-pill {
+    display: inline-flex; align-items: center;
+    background: var(--teal-light); color: var(--teal-dark);
+    font-size: 11px; font-weight: 800;
+    padding: 4px 12px; border-radius: 99px;
+    border: 1px solid var(--teal-mid);
+    letter-spacing: 0.08em; text-transform: uppercase;
   }
 
   .marquee-outer {

@@ -200,7 +200,12 @@
       </p>
     </div>
 
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form" class="space-y-5">
+    <div id="form-success" class="hidden text-center py-12">
+        <div class="text-5xl mb-4">&#10003;</div>
+        <h3 class="font-black text-2xl text-slate-900 mb-2">Enquiry received!</h3>
+        <p class="text-slate-500 text-sm">We'll be in touch within 1 business day.</p>
+      </div>
+      <form id="contact-form" class="space-y-5">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label class="form-label" for="name">Full Name *</label>
@@ -252,7 +257,10 @@
         <textarea class="form-input" id="message" name="message" rows="4" placeholder="Describe your situation, goals, or any specific challenges you're facing..."></textarea>
       </div>
 
-      <button type="submit" class="btn-primary w-full justify-center">
+      <div id="form-error" class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-center">
+        Something went wrong. Please try again or email us directly.
+      </div>
+      <button type="submit" id="submit-btn" class="btn-primary w-full justify-center">
         Send my enquiry
         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </button>
@@ -283,12 +291,65 @@
 </footer>
 
 <script>
+// Smooth scroll for anchor links
 document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
   link.addEventListener('click', function(e) {
     e.preventDefault();
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// Contact form → Make.com → Airtable
+(function () {
+  const form    = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  const error   = document.getElementById('form-error');
+  const btn     = document.getElementById('submit-btn');
+  const WEBHOOK = 'https://hook.us2.make.com/phidvt042nkvvylekv6grg0zrm8kvffj';
+  const btnDefault = btn.innerHTML;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    error.classList.add('hidden');
+
+    const payload = {
+      name:         form.name.value.trim(),
+      email:        form.email.value.trim(),
+      business:     form.business.value.trim(),
+      volume:       form.volume.value,
+      provider:     form.provider.value.trim(),
+      help:         form.help.value,
+      message:      form.message.value.trim(),
+      source:       'website',
+      submitted_at: new Date().toISOString()
+    };
+
+    btn.disabled = true;
+    btn.innerHTML = 'Sending&hellip;';
+
+    try {
+      await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+        mode: 'no-cors'   // avoids preflight — Make.com still parses the JSON body
+      });
+      // no-cors gives an opaque response — can't read res.ok
+      // if fetch didn't throw, the webhook received it fine
+
+      form.classList.add('hidden');
+      success.querySelector('p').textContent =
+        'Thanks ' + (payload.name.split(' ')[0] || 'there') +
+        ", we'll be in touch within 1 business day.";
+      success.classList.remove('hidden');
+
+    } catch (err) {
+      error.classList.remove('hidden');
+      btn.disabled = false;
+      btn.innerHTML = btnDefault;
+    }
+  });
+})();
 </script>
 </body>
 </html>

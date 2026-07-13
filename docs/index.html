@@ -107,21 +107,33 @@
   }
   .marquee-track {
     display: flex;
-    gap: 52px;
+    gap: 48px;
     align-items: center;
     animation: marquee 40s linear infinite;
     width: max-content;
   }
   .marquee-track:hover { animation-play-state: paused; }
-  .marquee-track img {
-    height: 22px;
+  /* Fixed-width slot so SVG whitespace never bloats the gap */
+  .logo-slot {
+    width: 90px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-slot img,
+  .logo-slot svg {
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     opacity: 0.4;
     filter: grayscale(1);
     transition: opacity 0.2s;
-    flex-shrink: 0;
+    display: block;
   }
-  .marquee-track img:hover { opacity: 0.75; }
+  .logo-slot img:hover,
+  .logo-slot svg:hover { opacity: 0.75; }
   @keyframes marquee {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -195,39 +207,39 @@
       <div class="marquee-outer">
         <div class="marquee-track">
           <!-- Set 1 -->
-          <img src="https://cdn.brandfetch.io/id_rWxLMsA/w/985/h/256/theme/dark/logo.webp?c=1dxbfHSJFAPEGdCLU4o5B" alt="Aspire"/>
-          <img src="https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Airwallex"/>
-          <img src="https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldfirst"/>
-          <img src="https://cdn.brandfetch.io/idVmyDyyyZ/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Payoneer"/>
-          <img src="https://cdn.brandfetch.io/idyxZCX73R/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Square"/>
-          <img src="https://cdn.brandfetch.io/idawOgYOsG/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Amazon"/>
-          <img src="https://cdn.brandfetch.io/idPyJLfkby/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Currenxie"/>
-          <img src="https://cdn.brandfetch.io/idlDNXV2nw/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Adyen"/>
-          <img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/>
-          <img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/>
-          <img src="https://cdn.brandfetch.io/idZx1reqXu/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Checkout.com"/>
-          <img src="https://cdn.brandfetch.io/idRpCarqbB/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Stripe"/>
-          <img src="https://cdn.brandfetch.io/idY4rzp0Gt/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Sunrate"/>
-          <img src="https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Paypal"/>
-          <img src="https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Ebury"/>
-          <img src="https://cdn.brandfetch.io/id1R4rkJXF/w/1024/h/280/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Zyla"/>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/id_rWxLMsA/w/985/h/256/theme/dark/logo.webp?c=1dxbfHSJFAPEGdCLU4o5B" alt="Aspire"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Airwallex"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldfirst"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idVmyDyyyZ/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Payoneer"/></span>
+          <span class="logo-slot" style="width:110px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 22" height="22" role="img" aria-label="Square"><rect x="0" y="1" width="20" height="20" rx="3" fill="#0f172a"/><text x="28" y="16" font-family="'Inter','Segoe UI',system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">Square</text></svg></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idawOgYOsG/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Amazon"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idPyJLfkby/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Currenxie"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idlDNXV2nw/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Adyen"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idZx1reqXu/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Checkout.com"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idRpCarqbB/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Stripe"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idY4rzp0Gt/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Sunrate"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Paypal"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Ebury"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/id1R4rkJXF/w/1024/h/280/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Zyla"/></span>
           <!-- Set 2 (duplicate for seamless loop) -->
-          <img src="https://cdn.brandfetch.io/id_rWxLMsA/w/985/h/256/theme/dark/logo.webp?c=1dxbfHSJFAPEGdCLU4o5B" alt="Aspire"/>
-          <img src="https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Airwallex"/>
-          <img src="https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldfirst"/>
-          <img src="https://cdn.brandfetch.io/idVmyDyyyZ/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Payoneer"/>
-          <img src="https://cdn.brandfetch.io/idyxZCX73R/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Square"/>
-          <img src="https://cdn.brandfetch.io/idawOgYOsG/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Amazon"/>
-          <img src="https://cdn.brandfetch.io/idPyJLfkby/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Currenxie"/>
-          <img src="https://cdn.brandfetch.io/idlDNXV2nw/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Adyen"/>
-          <img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/>
-          <img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/>
-          <img src="https://cdn.brandfetch.io/idZx1reqXu/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Checkout.com"/>
-          <img src="https://cdn.brandfetch.io/idRpCarqbB/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Stripe"/>
-          <img src="https://cdn.brandfetch.io/idY4rzp0Gt/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Sunrate"/>
-          <img src="https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Paypal"/>
-          <img src="https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Ebury"/>
-          <img src="https://cdn.brandfetch.io/id1R4rkJXF/w/1024/h/280/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Zyla"/>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/id_rWxLMsA/w/985/h/256/theme/dark/logo.webp?c=1dxbfHSJFAPEGdCLU4o5B" alt="Aspire"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Airwallex"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldfirst"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idVmyDyyyZ/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Payoneer"/></span>
+          <span class="logo-slot" style="width:110px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 22" height="22" role="img" aria-label="Square"><rect x="0" y="1" width="20" height="20" rx="3" fill="#0f172a"/><text x="28" y="16" font-family="'Inter','Segoe UI',system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">Square</text></svg></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idawOgYOsG/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Amazon"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idPyJLfkby/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Currenxie"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idlDNXV2nw/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Adyen"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idZx1reqXu/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Checkout.com"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idRpCarqbB/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Stripe"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idY4rzp0Gt/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Sunrate"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Paypal"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Ebury"/></span>
+          <span class="logo-slot"><img src="https://cdn.brandfetch.io/id1R4rkJXF/w/1024/h/280/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Zyla"/></span>
         </div>
       </div>
     </div>

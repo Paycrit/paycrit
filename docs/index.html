@@ -152,34 +152,30 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero-bg flex-1 flex items-center justify-center px-6 py-20 sm:py-28">
+<section class="hero-bg flex-1 flex items-center justify-center px-6 py-10 sm:py-14">
   <div class="max-w-3xl mx-auto text-center">
 
-    <span class="badge-pill mb-6 inline-block">Payment Provider Intelligence</span>
+    <span class="badge-pill mb-4 inline-block">Payment Provider Intelligence</span>
 
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6">
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight mb-3">
       Find the right payment partner<br/>for your business
     </h1>
 
     <!-- TYPEWRITER -->
-    <div class="mb-8 flex items-center justify-center">
+    <div class="mb-5 flex items-center justify-center">
       <span class="text-2xl sm:text-3xl font-black leading-tight flex items-center">
         <span class="typewriter" id="typewriter"></span><span class="cursor"></span>
       </span>
     </div>
 
-    <p class="text-slate-500 text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-      50+ payment providers independently scored, compared, and matched to your business — all in one place.
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-      <a href="dashboard.html" class="btn-primary">
-        Compare Providers
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      </a>
-      <a href="dashboard.html" onclick="sessionStorage.setItem('tab','match')" class="btn-secondary">
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+    <div class="flex flex-col items-center gap-3">
+      <a href="dashboard.html" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="font-size:16px;padding:16px 40px;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="6" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke-width="0"/></svg>
         Find My Match
+      </a>
+      <p class="text-slate-400 text-xs font-medium tracking-wide">5 questions &nbsp;&bull;&nbsp; 60 seconds &nbsp;&bull;&nbsp; personalised results</p>
+      <a href="dashboard.html" class="text-slate-400 hover:text-slate-700 text-sm font-semibold transition-colors" style="text-decoration:none;">
+        or browse all providers &rarr;
       </a>
     </div>
 
@@ -191,7 +187,7 @@
 
     <!-- LOGO STRIP MARQUEE -->
     <div class="mt-12">
-      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-5">Providers covered</p>
+      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-5">50+ providers independently scored &mdash; all in one place</p>
       <div class="marquee-outer">
         <div class="marquee-track">
           <!-- Set 1 -->

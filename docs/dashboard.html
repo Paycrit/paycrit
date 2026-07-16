@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root {
     --navy:       #0B2D5E;
@@ -32,10 +31,26 @@
   .chip-on  { background: var(--navy); color: #fff; border-color: var(--navy); }
   .chip-off { background: #fff; color: #475569; border-color: #e2e8f0; }
   .chip-off:hover { border-color: var(--teal); color: var(--teal); }
-  .pcard { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 24px; transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s; }
-  .pcard:hover { box-shadow: 0 8px 32px rgba(0,180,162,0.10); border-color: var(--teal-mid); transform: translateY(-2px); }
+  .pcard { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s; }
+  .pcard:hover { box-shadow: 0 12px 40px rgba(0,180,162,0.13); border-color: var(--teal-mid); transform: translateY(-3px); }
+  .pcard-top { background: linear-gradient(135deg,#f8fafc 0%,#E0F5F3 100%); padding: 18px 20px 14px; display: flex; align-items: flex-start; justify-content: space-between; }
+  .logo-shelf { display: flex; align-items: center; min-height: 44px; }
+  .logo-box { background: #fff; border-radius: 10px; padding: 8px 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.09); display: inline-flex; align-items: center; justify-content: center; min-width: 80px; }
   .provider-logo { height: 28px; max-width: 110px; object-fit: contain; display: block; }
-  .logo-text { font-weight: 800; font-size: 13px; color: #1e293b; letter-spacing: -0.01em; }
+  .score-wrap { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .pscore-label { font-size: 9px; font-weight: 800; color: var(--teal); letter-spacing: 0.8px; text-transform: uppercase; }
+  .logo-text { font-weight: 800; font-size: 14px; color: #1e293b; }
+  .ring-area { flex-shrink: 0; }
+  .pcard-body { padding: 14px 20px 18px; }
+  .vol-tag { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 600; background: #f1f5f9; color: #475569; }
+  .type-tag { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 600; background: #E0F5F3; color: #0B2D5E; }
+  .insight { font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 8px; margin-bottom: 4px; line-height: 1.4; }
+  .insight-pro { background: #dcfce7; color: #15803d; }
+  .insight-con { background: #fef3c7; color: #92400e; }
+  .link-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #f1f5f9; }
+  .plink { font-size: 12px; font-weight: 700; color: var(--teal); text-decoration: none; }
+  .plink:hover { text-decoration: underline; }
+  .plink-kyc { color: var(--navy); }
   .score-track { height: 6px; border-radius: 99px; background: #f1f5f9; overflow: hidden; }
   .score-fill  { height: 100%; border-radius: 99px; }
   .opt { border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; background: #fff; cursor: pointer; transition: all 0.15s; width: 100%; text-align:left; display:flex; align-items:center; gap:12px; }
@@ -90,32 +105,6 @@
   <div class="mb-6">
     <h2 class="text-xl font-black text-slate-900">Provider Comparison</h2>
     <p class="text-slate-500 text-sm mt-1">Independently scored — ranked by Paycrit score. Click any card to see full pricing &amp; KYC details.</p>
-  </div>
-
-  <!-- STATS -->
-  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-    <div class="bg-white rounded-2xl border border-slate-100 p-5">
-      <div class="text-3xl font-black" style="color:var(--navy)" id="stat-count">--</div>
-      <div class="text-slate-500 text-xs font-medium mt-1">Providers Rated</div>
-    </div>
-    <div class="bg-white rounded-2xl border border-slate-100 p-5">
-      <div class="text-3xl font-black text-emerald-600" id="stat-high">--</div>
-      <div class="text-slate-500 text-xs font-medium mt-1">Highest Score</div>
-    </div>
-    <div class="bg-white rounded-2xl border border-slate-100 p-5">
-      <div class="text-3xl font-black text-amber-500" id="stat-avg">--</div>
-      <div class="text-slate-500 text-xs font-medium mt-1">Avg. Score</div>
-    </div>
-    <div class="bg-white rounded-2xl border border-slate-100 p-5">
-      <div class="text-3xl font-black" style="color:var(--navy)">3</div>
-      <div class="text-slate-500 text-xs font-medium mt-1">Volume Tiers</div>
-    </div>
-  </div>
-
-  <!-- CHART -->
-  <div class="bg-white rounded-2xl border border-slate-100 p-6 mb-6">
-    <h2 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-5">Score Leaderboard</h2>
-    <div style="height:290px;position:relative;"><canvas id="scoreChart"></canvas></div>
   </div>
 
   <!-- FILTERS -->
@@ -298,24 +287,62 @@ function listItems(txt) {
 function matchesType(bt,f){ if(f==='all') return true; return (typeKeys[f]||[]).some(k=>bt.toLowerCase().includes(k)); }
 function matchesVol(v,f){ if(f==='all') return true; return v===volKey[f]; }
 
-function buildStats() {
-  const rated = PROVIDERS.filter(p=>p.score!==null);
-  document.getElementById('stat-count').textContent = rated.length;
-  document.getElementById('stat-high').textContent  = Math.max(...rated.map(p=>p.score)).toFixed(1);
-  const avg = rated.reduce((a,p)=>a+p.score,0)/rated.length;
-  document.getElementById('stat-avg').textContent   = avg.toFixed(1);
+
+
+function scoreRing(s) {
+  const r=20, circ=+(2*Math.PI*r).toFixed(2);
+  if(s===null) return `<div class="score-wrap"><svg width="52" height="52" viewBox="0 0 48 48"><circle cx="24" cy="24" r="${r}" fill="none" stroke="#e2e8f0" stroke-width="4"/><text x="24" y="29" text-anchor="middle" font-size="9" font-weight="800" fill="#94a3b8">N/R</text></svg><span class="pscore-label">Paycrit</span></div>`;
+  const off=+(circ*(1-s/5)).toFixed(2); const col=scoreColor(s);
+  return `<div class="score-wrap"><svg width="52" height="52" viewBox="0 0 48 48"><circle cx="24" cy="24" r="${r}" fill="none" stroke="#e2e8f0" stroke-width="4"/><circle cx="24" cy="24" r="${r}" fill="none" stroke="${col}" stroke-width="4" stroke-dasharray="${circ}" stroke-dashoffset="${off}" stroke-linecap="round" transform="rotate(-90 24 24)"/><text x="24" y="29" text-anchor="middle" font-size="14" font-weight="800" fill="${col}">${s}</text></svg><span class="pscore-label">Paycrit</span></div>`;
 }
 
-function buildChart() {
-  const rated = [...PROVIDERS].filter(p=>p.score!==null).sort((a,b)=>b.score-a.score);
-  new Chart(document.getElementById('scoreChart').getContext('2d'), {
-    type:'bar',
-    data:{labels:rated.map(p=>p.name),datasets:[{data:rated.map(p=>p.score),backgroundColor:rated.map(p=>scoreColor(p.score)),borderRadius:6,borderSkipped:false}]},
-    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` Score: ${c.parsed.x} / 5.0`}}},
-      scales:{x:{min:0,max:5,grid:{color:'#f8fafc'},ticks:{color:'#94a3b8',font:{size:11}}},y:{grid:{display:false},ticks:{color:'#1e293b',font:{size:11,weight:'600'}}}}
-    }
-  });
+function firstLine(txt) {
+  if(!txt) return '';
+  const l=txt.split('\n').find(x=>x.trim());
+  return l ? l.replace(/^\d+\.\s*/,'').trim() : '';
+}
+
+function buildCard(p) {
+  const col=scoreColor(p.score); const bd=scoreBadge(p.score);
+  const logoHtml=p.logo
+    ? `<div class="logo-box"><img src="${p.logo}" alt="${p.name}" class="provider-logo" onerror="this.outerHTML='<span class=logo-text>${p.name}</span>'"/></div>`
+    : `<span class="logo-text">${p.name}</span>`;
+  const pro1=firstLine(p.pros);
+  const con1=firstLine(p.cons);
+  return `<div class="pcard">
+    <div class="pcard-top">
+      <div class="logo-shelf">${logoHtml}</div>
+      <div class="ring-area">${scoreRing(p.score)}</div>
+    </div>
+    <div class="pcard-body">
+      <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+        <h3 class="font-black text-slate-900 text-base leading-tight">${p.name}</h3>
+        <span class="badge" style="background:${bd.bg};color:${bd.text}">${bd.label}</span>
+      </div>
+      <p class="text-slate-400 text-xs mb-2 leading-snug">${p.btype}</p>
+      <div class="flex flex-wrap gap-1.5 mb-3">
+        <span class="vol-tag">${p.vol||'All volumes'}</span>
+        <span class="type-tag">${p.target.slice(0,45)}${p.target.length>45?'\u2026':''}</span>
+      </div>
+      ${pro1?`<div class="insight insight-pro">&#10003; ${pro1}</div>`:''}
+      ${con1?`<div class="insight insight-con">&#9888; ${con1}</div>`:''}
+      <details class="mt-3">
+        <summary class="flex items-center gap-1.5 text-slate-400 font-semibold text-xs py-1" style="cursor:pointer">
+          <span class="chevron" style="font-size:10px">&#9654;</span>Full details
+        </summary>
+        <div class="mt-3 pt-3 border-t border-slate-100 flex flex-col gap-3 text-xs">
+          <div><p class="font-bold text-emerald-600 mb-1.5">Pros</p><ul class="text-slate-600 space-y-1">${listItems(p.pros)}</ul></div>
+          <div><p class="font-bold text-red-500 mb-1.5">Cons</p><ul class="text-slate-600 space-y-1">${listItems(p.cons)}</ul></div>
+          <div><p class="font-bold mb-1.5" style="color:var(--teal)">Pricing</p><p class="text-slate-600 leading-relaxed">${p.price||'Contact for pricing'}</p></div>
+        </div>
+      </details>
+      <div class="link-row">
+        ${p.web?`<a href="${p.web}" target="_blank" class="plink">Website &#8594;</a>`:''}
+        ${p.pp?`<a href="${p.pp}" target="_blank" class="plink">Pricing &#8594;</a>`:''}
+        ${p.kyc?`<a href="${p.kyc}" target="_blank" class="plink plink-kyc">KYC &#8594;</a>`:''}
+      </div>
+    </div>
+  </div>`;
 }
 
 let aType='all', aVol='all';
@@ -334,44 +361,7 @@ function renderCards() {
   const vis=PROVIDERS.filter(p=>p.name&&matchesType(p.btype,aType)&&matchesVol(p.vol,aVol)).sort((a,b)=>(b.score||0)-(a.score||0));
   if(!vis.length){grid.innerHTML='';none.classList.remove('hidden');return;}
   none.classList.add('hidden');
-  grid.innerHTML=vis.map(p=>{
-    const pct=((p.score||0)/5)*100; const col=scoreColor(p.score); const bd=scoreBadge(p.score);
-    const lightLogo = p.logo ? p.logo.replace('theme/dark','theme/light') : '';
-    const logoHtml = lightLogo
-      ? `<img src="${lightLogo}" alt="${p.name}" class="provider-logo" onerror="this.outerHTML='<span class=logo-text>${p.name}</span>'"/>`
-      : `<span class="logo-text">${p.name}</span>`;
-    return `<div class="pcard flex flex-col gap-3">
-      <div class="flex items-start justify-between gap-3">
-        ${logoHtml}
-        <div class="text-right flex-shrink-0">
-          <div class="text-2xl font-black" style="color:${col}">${p.score!==null?p.score:'N/R'}</div>
-          <span class="badge" style="background:${bd.bg};color:${bd.text}">${bd.label}</span>
-        </div>
-      </div>
-      <h3 class="font-black text-slate-900 text-base -mt-1">${p.name}</h3>
-      <div class="score-track"><div class="score-fill" style="width:${pct}%;background:${col}"></div></div>
-      <div class="flex flex-wrap gap-1.5">
-        <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:#f1f5f9;color:#475569">${p.vol}</span>
-          <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:#E0F5F3;color:#0B2D5E">${p.target.slice(0,50)}${p.target.length>50?'...':''}</span>
-      </div>
-      <p class="text-slate-400 text-xs leading-relaxed">${p.btype}</p>
-      <details>
-        <summary class="flex items-center gap-1.5 text-slate-500 font-semibold text-xs py-1 transition-colors" style="cursor:pointer">
-          <span class="chevron" style="font-size:10px">&#9654;</span>Pros, Cons &amp; Pricing
-        </summary>
-        <div class="mt-3 pt-3 border-t border-slate-100 flex flex-col gap-3 text-xs">
-          <div><p class="font-bold text-emerald-600 mb-1.5">Pros</p><ul class="text-slate-600 space-y-1">${listItems(p.pros)}</ul></div>
-          <div><p class="font-bold text-red-500 mb-1.5">Cons</p><ul class="text-slate-600 space-y-1">${listItems(p.cons)}</ul></div>
-          <div><p class="font-bold mb-1.5" style="color:var(--teal)">Pricing</p><p class="text-slate-600 leading-relaxed">${p.price||'Contact for pricing'}</p></div>
-          <div class="flex flex-wrap gap-3 pt-1">
-            ${p.web?`<a href="${p.web}" target="_blank" class="font-semibold hover:underline" style="color:var(--teal)">Website &rarr;</a>`:''}
-            ${p.pp?`<a href="${p.pp}" target="_blank" class="font-semibold hover:underline" style="color:var(--teal)">Pricing &rarr;</a>`:''}
-            ${p.kyc?`<a href="${p.kyc}" target="_blank" class="font-semibold hover:underline" style="color:var(--teal)">KYC Docs &rarr;</a>`:''}
-          </div>
-        </div>
-      </details>
-    </div>`;
-  }).join('');
+  grid.innerHTML=vis.map(buildCard).join('');
 }
 
 // ── Quiz state ──────────────────────────────────────────────
@@ -560,8 +550,6 @@ function switchTab(t){
 const savedTab = sessionStorage.getItem('tab');
 if (savedTab) { sessionStorage.removeItem('tab'); switchTab(savedTab); }
 
-buildStats();
-buildChart();
 renderCards();
 </script>
 

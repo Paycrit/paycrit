@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Paycrit — Find Your Payment Partner</title>
+<title>Paycrit - Find Your Payment Partner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {
@@ -17,26 +17,67 @@
     --teal-light: #E0F5F3;
     --teal-mid:   #80D9D1;
   }
-  * { font-family: 'Poppins', system-ui, sans-serif; }
-  body { background: #ffffff; color: #1e293b; }
+
+  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+  /* ── Typatch logo tight spacing ── */
   h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
   h2 { font-weight: 800; letter-spacing: -0.75px; }
-  h3 { font-weight: 700; letter-spacing: -0.5px; }
+  h3 { font-weight: 800; letter-spacing: -0.5px; }
 
-  .paycrit-logo { font-size:22px; font-weight:800; letter-spacing:-0.5px; text-decoration:none; line-height:1; display:inline-flex; align-items:center; }
-  .pc-pay  { color: var(--navy); }
-  .pc-crit { color: var(--teal); }
+  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
+  .pc-pay{color:var(--navy);}
+  .pc-crit{color:var(--teal);}
+  body { background: #ffffff; color: #1e293b; }
 
-  .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #ffffff 70%); }
+  .hero-bg {
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #ffffff 70%);
+  }
+
+  .typewriter-wrap { display: inline-block; position: relative; }
+  .typewriter {
+    color: var(--teal);
+    font-weight: 900;
+    letter-spacing: -1px;
+    position: relative;
+    white-space: nowrap;
+  }
+  .cursor {
+    display: inline-block;
+    width: 3px; height: 1em;
+    background: var(--teal);
+    margin-left: 3px; vertical-align: middle;
+    border-radius: 2px;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .feature-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .feature-card:hover {
+    box-shadow: 0 8px 32px rgba(0,180,162,0.12);
+    border-color: var(--teal-mid);
+    transform: translateY(-2px);
+  }
+  .feature-card a { color: var(--teal); }
 
   .btn-primary {
-    background: var(--navy); color: #fff; font-weight: 700; letter-spacing: -0.2px;
+    background: var(--navy);
+    color: #fff; font-weight: 700; letter-spacing: -0.2px;
     padding: 14px 32px; border-radius: 12px; font-size: 15px;
     transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
     display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
   }
-  .btn-primary:hover { background: var(--navy-dark); box-shadow: 0 4px 20px rgba(11,45,94,0.35); transform: translateY(-1px); }
-
+  .btn-primary:hover {
+    background: var(--navy-dark);
+    box-shadow: 0 4px 20px rgba(11,45,94,0.35);
+    transform: translateY(-1px);
+  }
   .btn-secondary {
     background: #fff; color: #1e293b; font-weight: 700; letter-spacing: -0.2px;
     padding: 14px 32px; border-radius: 12px; font-size: 15px;
@@ -44,59 +85,55 @@
     transition: border-color 0.15s, background 0.15s, transform 0.1s;
     display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
   }
-  .btn-secondary:hover { border-color: var(--teal); background: var(--teal-light); transform: translateY(-1px); }
+  .btn-secondary:hover {
+    border-color: var(--teal);
+    background: var(--teal-light);
+    transform: translateY(-1px);
+  }
 
   .badge-pill {
     display: inline-flex; align-items: center;
     background: var(--teal-light); color: var(--teal-dark);
-    font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 99px;
-    border: 1px solid var(--teal-mid); letter-spacing: 0.08em; text-transform: uppercase;
+    font-size: 11px; font-weight: 800;
+    padding: 4px 12px; border-radius: 99px;
+    border: 1px solid var(--teal-mid);
+    letter-spacing: 0.08em; text-transform: uppercase;
   }
 
-  /* Typewriter */
-  .typewriter { color: var(--teal); font-weight: 900; letter-spacing: -1px; white-space: nowrap; }
-  .cursor {
-    display: inline-block; width: 3px; height: 1em; background: var(--teal);
-    margin-left: 3px; vertical-align: middle; border-radius: 2px;
-    animation: blink 0.9s step-end infinite;
-  }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  /* Feature cards */
-  .feature-card {
-    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 28px 24px;
-    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-  }
-  .feature-card:hover { box-shadow: 0 8px 32px rgba(0,180,162,0.12); border-color: var(--teal-mid); transform: translateY(-2px); }
-  .feature-card a { color: var(--teal); }
-  .icon-wrap { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
-
-  /* Marquee */
   .marquee-outer {
     overflow: hidden;
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
-  .marquee-track { display: flex; gap: 52px; align-items: center; animation: marquee 40s linear infinite; width: max-content; }
+  .marquee-track {
+    display: flex;
+    gap: 52px;
+    align-items: center;
+    animation: marquee 40s linear infinite;
+    width: max-content;
+  }
   .marquee-track:hover { animation-play-state: paused; }
-  .marquee-track img { height: 22px; object-fit: contain; opacity: 0.4; filter: grayscale(1); transition: opacity 0.2s; flex-shrink: 0; }
+  .marquee-track img {
+    height: 22px;
+    object-fit: contain;
+    opacity: 0.4;
+    filter: grayscale(1);
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
   .marquee-track img:hover { opacity: 0.75; }
-  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
-  /* Payment area cards */
-  .area-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 28px; transition: all 0.2s; }
-  .area-card:hover { box-shadow: 0 8px 32px rgba(0,180,162,0.10); border-color: var(--teal-mid); transform: translateY(-2px); }
-  .area-featured { background: var(--navy); border: none; border-radius: 20px; padding: 28px; }
-  .area-tag { display: inline-flex; background: rgba(0,180,162,0.18); color: var(--teal); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.06em; text-transform: uppercase; }
-  .area-tag-gray { display: inline-flex; background: var(--teal-light); color: var(--teal-dark); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.06em; text-transform: uppercase; }
-
-  /* Parallel path steps */
-  .step-num { width: 32px; height: 32px; border-radius: 10px; background: var(--navy); color: #fff; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .step-num-teal { background: var(--teal); }
-
-  /* Calculator */
-  input[type=range] { accent-color: var(--teal); width: 100%; cursor: pointer; }
-  .calc-result { background: var(--teal-light); border: 1px solid var(--teal-mid); border-radius: 14px; padding: 18px; text-align: center; }
+  .icon-wrap {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
   .section-label { color: var(--teal); }
 </style>
 </head>
@@ -109,41 +146,38 @@
     <div class="flex items-center gap-4">
       <a href="dashboard.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Compare</a>
       <a href="services.html" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors">Services</a>
-      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="padding:9px 20px;font-size:13px;">Find My Match</a>
+      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="padding:9px 20px;font-size:13px;letter-spacing:-0.1px;">Find My Match</a>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero-bg flex-1 flex items-center justify-center px-6 py-12 sm:py-16">
+<section class="hero-bg flex-1 flex items-center justify-center px-6 py-10 sm:py-14">
   <div class="max-w-3xl mx-auto text-center">
-    <span class="badge-pill mb-5 inline-block">Independent Payment Intelligence</span>
+
+    <span class="badge-pill mb-4 inline-block">Payment Provider Intelligence</span>
 
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight mb-3">
-      Your business is ready for more.<br/>
-      <span style="color:var(--navy)">So are your payments.</span>
+      Find the right payment partner<br/>for your business
     </h1>
 
-    <p class="text-slate-500 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-5">
-      Paycrit helps merchants find the right payment providers — for today's card payments
-      and tomorrow's stablecoin-powered future. Independent research, zero bias.
-    </p>
-
     <!-- TYPEWRITER -->
-    <div class="mb-6 flex items-center justify-center">
-      <span class="text-xl sm:text-2xl font-black leading-tight flex items-center">
+    <div class="mb-5 flex items-center justify-center">
+      <span class="text-2xl sm:text-3xl font-black leading-tight flex items-center">
         <span class="typewriter" id="typewriter"></span><span class="cursor"></span>
       </span>
     </div>
 
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-      <a href="dashboard.html#match" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="font-size:16px;padding:16px 36px;">
+    <div class="flex flex-col items-center gap-3">
+      <a href="dashboard.html" onclick="sessionStorage.setItem('tab','match')" class="btn-primary" style="font-size:16px;padding:16px 40px;">
         <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="6" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke-width="0"/></svg>
         Find My Match
       </a>
-      <a href="#calculator" class="btn-secondary">See what I could save &darr;</a>
+      <p class="text-slate-400 text-xs font-medium tracking-wide">5 questions &nbsp;&bull;&nbsp; 60 seconds &nbsp;&bull;&nbsp; personalised results</p>
+      <a href="dashboard.html" class="text-slate-400 hover:text-slate-700 text-sm font-semibold transition-colors" style="text-decoration:none;">
+        or browse all providers &rarr;
+      </a>
     </div>
-    <p class="text-slate-400 text-xs font-medium tracking-wide mt-4">5 questions &nbsp;&bull;&nbsp; 60 seconds &nbsp;&bull;&nbsp; personalised results</p>
 
     <!-- TRUST LINE -->
     <div class="mt-6 flex items-center justify-center gap-2">
@@ -151,43 +185,52 @@
       <span class="text-slate-400 text-xs font-semibold tracking-wide">Built by an independent researcher — no provider pays us, no referrals, built for merchants</span>
     </div>
 
-    <!-- LOGO STRIP -->
+    <!-- LOGO STRIP MARQUEE -->
     <div class="mt-12">
-      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-5">50+ providers independently scored — all in one place</p>
+      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-5">50+ providers independently scored &mdash; all in one place</p>
       <div class="marquee-outer">
         <div class="marquee-track">
+          <!-- Set 1 -->
           <img src="https://cdn.brandfetch.io/id_rWxLMsA/w/985/h/256/theme/dark/logo.webp?c=1dxbfHSJFAPEGdCLU4o5B" alt="Aspire"/>
           <img src="https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Airwallex"/>
           <img src="https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldfirst"/>
           <img src="https://cdn.brandfetch.io/idVmyDyyyZ/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Payoneer"/>
           <img src="https://cdn.brandfetch.io/idyxZCX73R/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Square"/>
+          <img src="https://cdn.brandfetch.io/idawOgYOsG/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Amazon"/>
+          <img src="https://cdn.brandfetch.io/idPyJLfkby/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Currenxie"/>
           <img src="https://cdn.brandfetch.io/idlDNXV2nw/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Adyen"/>
+          <img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/>
+          <img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/>
           <img src="https://cdn.brandfetch.io/idZx1reqXu/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Checkout.com"/>
           <img src="https://cdn.brandfetch.io/idRpCarqbB/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Stripe"/>
+          <img src="https://cdn.brandfetch.io/idY4rzp0Gt/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Sunrate"/>
           <img src="https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Paypal"/>
           <img src="https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Ebury"/>
-          <img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/>
-          <img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/>
-          <!-- duplicate for seamless loop -->
+          <img src="https://cdn.brandfetch.io/id1R4rkJXF/w/1024/h/280/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Zyla"/>
+          <!-- Set 2 (duplicate for seamless loop) -->
           <img src="https://cdn.brandfetch.io/id_rWxLMsA/w/985/h/256/theme/dark/logo.webp?c=1dxbfHSJFAPEGdCLU4o5B" alt="Aspire"/>
           <img src="https://cdn.brandfetch.io/idXCtf-53F/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Airwallex"/>
           <img src="https://cdn.brandfetch.io/idQI0qYhhb/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldfirst"/>
           <img src="https://cdn.brandfetch.io/idVmyDyyyZ/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Payoneer"/>
           <img src="https://cdn.brandfetch.io/idyxZCX73R/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Square"/>
+          <img src="https://cdn.brandfetch.io/idawOgYOsG/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Amazon"/>
+          <img src="https://cdn.brandfetch.io/idPyJLfkby/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Currenxie"/>
           <img src="https://cdn.brandfetch.io/idlDNXV2nw/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Adyen"/>
+          <img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/>
+          <img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/>
           <img src="https://cdn.brandfetch.io/idZx1reqXu/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Checkout.com"/>
           <img src="https://cdn.brandfetch.io/idRpCarqbB/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Stripe"/>
+          <img src="https://cdn.brandfetch.io/idY4rzp0Gt/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Sunrate"/>
           <img src="https://cdn.brandfetch.io/id-Wd4a4TS/theme/dark/id31tBizMM.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Paypal"/>
           <img src="https://cdn.brandfetch.io/idS3PcGYGV/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Ebury"/>
-          <img src="https://cdn.brandfetch.io/idXXtXEHRT/w/1408/h/321/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Worldpay"/>
-          <img src="https://cdn.brandfetch.io/idPpfKyzta/w/291/h/62/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Transfermate"/>
+          <img src="https://cdn.brandfetch.io/id1R4rkJXF/w/1024/h/280/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Zyla"/>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHAT PAYCRIT DOES -->
+<!-- FEATURES -->
 <section class="bg-slate-50 border-t border-slate-100 px-6 py-16 sm:py-20">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-12">
@@ -198,198 +241,21 @@
       <div class="feature-card">
         <div class="icon-wrap" style="background:var(--teal-light)">&#128202;</div>
         <h3 class="font-black text-slate-900 text-lg mb-2">Compare Providers</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Side-by-side comparison of 50+ providers — card, stablecoin, wallet, and cross-border. Filter by business type, volume, and category.</p>
+        <p class="text-slate-500 text-sm leading-relaxed">Side-by-side comparison of 13+ providers. Filter by business type, volume tier, and Paycrit score.</p>
         <a href="dashboard.html" class="inline-block mt-4 text-sm font-bold hover:underline">View all providers &rarr;</a>
       </div>
       <div class="feature-card">
         <div class="icon-wrap bg-emerald-50">&#127919;</div>
         <h3 class="font-black text-slate-900 text-lg mb-2">Find Your Match</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Answer 5 questions about your business and get a ranked list of providers scored to your exact needs — traditional and next-gen.</p>
+        <p class="text-slate-500 text-sm leading-relaxed">Answer 3 questions about your business and get a ranked list of providers scored to your exact needs.</p>
         <a href="dashboard.html" onclick="sessionStorage.setItem('tab','match')" class="inline-block mt-4 text-sm font-bold hover:underline">Start matching &rarr;</a>
       </div>
       <div class="feature-card">
         <div class="icon-wrap bg-amber-50">&#9889;</div>
         <h3 class="font-black text-slate-900 text-lg mb-2">Live Paycrit Scores</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Every provider independently rated 0-5 across pricing, transparency, and merchant experience. Updated regularly.</p>
+        <p class="text-slate-500 text-sm leading-relaxed">Every provider is independently rated 0-5 by Paycrit across pricing, transparency, and merchant experience.</p>
         <a href="dashboard.html" class="inline-block mt-4 text-sm font-bold hover:underline">See leaderboard &rarr;</a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- PAYMENT AREAS — ALL FOUR, STABLECOINS ADVOCATED -->
-<section class="bg-white border-t border-slate-100 px-6 py-16 sm:py-20">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-12">
-      <span class="text-xs font-bold uppercase tracking-widest mb-3 inline-block section-label">What we cover</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-slate-900">All payment types. One independent platform.</h2>
-      <p class="text-slate-500 text-sm mt-2 max-w-lg mx-auto">Paycrit covers the full payment spectrum — from the card payments running your business today to the stablecoin infrastructure that will define it tomorrow.</p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-      <!-- STABLECOINS — featured -->
-      <div class="area-featured">
-        <div class="area-tag mb-4">Paycrit Advocates</div>
-        <h3 class="text-xl font-bold text-white mb-2">Stablecoin Payments</h3>
-        <p class="text-slate-300 text-sm leading-relaxed mb-4">
-          The future of merchant payments. Stablecoins like USDC settle in minutes,
-          cost a fraction of card fees, and carry zero chargeback risk. We guide merchants
-          from curiosity to live implementation — at their own pace.
-        </p>
-        <div class="grid grid-cols-3 gap-2 text-center mt-5">
-          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 6px;">
-            <div class="font-black text-base" style="color:var(--teal)">1%</div>
-            <div class="text-slate-400 text-xs mt-1">avg fee</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 6px;">
-            <div class="font-black text-base" style="color:var(--teal)">$0</div>
-            <div class="text-slate-400 text-xs mt-1">chargebacks</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 6px;">
-            <div class="font-black text-base" style="color:var(--teal)">&lt;2h</div>
-            <div class="text-slate-400 text-xs mt-1">settlement</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CROSS-BORDER -->
-      <div class="area-card">
-        <div class="area-tag-gray mb-4">Cross-Border</div>
-        <h3 class="text-lg font-bold text-slate-900 mb-2">Cross-Border Payments</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">
-          Sending or receiving money internationally? SWIFT is slow and expensive.
-          Paycrit maps the fastest, cheapest corridor for your specific country pairs —
-          and shows whether a stablecoin rail or a traditional provider wins for your route.
-        </p>
-      </div>
-
-      <!-- WALLETS -->
-      <div class="area-card">
-        <div class="area-tag-gray mb-4">Digital Wallets</div>
-        <h3 class="text-lg font-bold text-slate-900 mb-2">Digital Wallets</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">
-          Apple Pay, Google Pay, PayPal, and emerging stablecoin wallets are reshaping
-          how customers expect to pay. Paycrit compares wallet providers so you offer
-          the checkout experience your customers actually want.
-        </p>
-      </div>
-
-      <!-- CARD PAYMENTS -->
-      <div class="area-card">
-        <div class="area-tag-gray mb-4">Card Payments</div>
-        <h3 class="text-lg font-bold text-slate-900 mb-2">Card Payments</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">
-          Cards remain the backbone of most merchant revenue — and we cover them fully.
-          Compare 50+ card payment providers across fees, features, processing limits,
-          and merchant experience. Know exactly what you are paying for.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- THE PARALLEL PATH — STABLECOIN ADOPTION BRIDGE -->
-<section class="bg-slate-50 border-t border-slate-100 px-6 py-16 sm:py-20">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-12">
-      <span class="text-xs font-bold uppercase tracking-widest mb-3 inline-block section-label">Our Approach to Stablecoins</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-slate-900">The Parallel Path&#8482;</h2>
-      <p class="text-slate-500 text-sm mt-2 max-w-lg mx-auto">
-        Not ready to switch everything? You don't have to. Run stablecoins alongside your existing payments,
-        let your own data tell you the difference, then decide how far to go.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
-      <div class="feature-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="step-num">1</div>
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wide">Month 1</div>
-        </div>
-        <h3 class="font-bold text-slate-900 text-base mb-2">Activate — 5%</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Add stablecoin as an extra checkout option alongside cards. Zero disruption. Paycrit sets up your Before vs After tracking from day one.</p>
-      </div>
-      <div class="feature-card" style="border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,180,162,0.07);">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="step-num step-num-teal">2</div>
-          <div class="text-xs font-bold uppercase tracking-wide" style="color:var(--teal)">Months 2-3</div>
-        </div>
-        <h3 class="font-bold text-slate-900 text-base mb-2">Observe — 10%</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Watch fees drop. Chargebacks disappear. Paycrit delivers a monthly comparison report from your actual transaction data — not theory.</p>
-      </div>
-      <div class="feature-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="step-num">3</div>
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wide">Month 4+</div>
-        </div>
-        <h3 class="font-bold text-slate-900 text-base mb-2">Decide — 30%+</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Your Before vs After report is in. You see the real annual saving. You decide how far to go — fully informed, zero pressure.</p>
-      </div>
-    </div>
-
-    <div class="text-center">
-      <a href="services.html#contact" class="btn-primary" style="font-size:15px;padding:14px 32px;">Book a Free Discovery Call &rarr;</a>
-      <p class="text-slate-400 text-xs mt-3">30 minutes. We assess your current setup and whether stablecoins are right for your business — no obligation.</p>
-    </div>
-  </div>
-</section>
-
-<!-- COST CALCULATOR -->
-<section id="calculator" class="bg-white border-t border-slate-100 px-6 py-16 sm:py-20">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-10">
-      <span class="text-xs font-bold uppercase tracking-widest mb-3 inline-block section-label">Free Calculator</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-slate-900">What are you actually paying?</h2>
-      <p class="text-slate-500 text-sm mt-2 max-w-md mx-auto">
-        Drag to your monthly volume. See what stablecoins could save your business — and what chargebacks are costing you.
-      </p>
-    </div>
-
-    <div class="bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm">
-      <!-- Slider -->
-      <div class="mb-8">
-        <div class="flex items-center justify-between mb-3">
-          <label class="text-sm font-bold text-slate-700">Monthly card processing volume</label>
-          <span class="text-xl font-black" style="color:var(--navy)" id="vol-display">$50,000</span>
-        </div>
-        <input type="range" id="volume-slider" min="5000" max="500000" step="5000" value="50000" class="w-full h-2 rounded-lg"/>
-        <div class="flex justify-between text-xs text-slate-400 mt-2 font-medium"><span>$5K</span><span>$500K</span></div>
-      </div>
-
-      <!-- Results -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
-        <div class="bg-red-50 border border-red-100 rounded-xl p-5 text-center">
-          <div class="text-xs font-bold text-red-400 uppercase tracking-wide mb-2">Card fees today</div>
-          <div class="text-2xl font-black text-red-500" id="card-fee">$1,450</div>
-          <div class="text-xs text-red-400 mt-1">per month at 2.9%</div>
-        </div>
-        <div class="calc-result">
-          <div class="text-xs font-bold uppercase tracking-wide mb-2" style="color:var(--teal-dark)">Stablecoin fees</div>
-          <div class="text-2xl font-black" style="color:var(--teal)" id="stable-fee">$500</div>
-          <div class="text-xs mt-1" style="color:var(--teal-dark)">per month at 1% flat</div>
-        </div>
-        <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-5 text-center">
-          <div class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-2">Monthly saving</div>
-          <div class="text-2xl font-black text-emerald-600" id="monthly-saving">$950</div>
-          <div class="text-xs text-emerald-500 font-semibold mt-1" id="annual-saving">$11,400 / year</div>
-        </div>
-      </div>
-
-      <!-- Chargeback callout -->
-      <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-4">
-        <div class="text-sm font-bold text-amber-800 mb-1">Plus: chargeback exposure not counted above</div>
-        <p class="text-xs text-amber-700 leading-relaxed">
-          At typical rates, a merchant processing <strong id="cb-vol">$50,000</strong>/month faces an estimated
-          <strong id="cb-cost">$250–$500</strong>/month in chargeback losses and dispute fees.
-          Stablecoin transactions carry <strong>zero chargebacks</strong> — payments are irreversible by design.
-        </p>
-      </div>
-      <p class="text-xs text-slate-400 text-center">
-        * Estimates based on standard 2.9% card rates. Actual savings vary by provider and business category.
-        Stablecoin rate reflects 1% flat across major providers (BitPay, NOWPayments, CoinGate).
-      </p>
     </div>
   </div>
 </section>
@@ -399,8 +265,7 @@
   <div class="max-w-2xl mx-auto text-center">
     <span class="text-xs font-bold uppercase tracking-widest mb-4 inline-block section-label">Why Paycrit exists</span>
     <p class="text-slate-700 text-xl sm:text-2xl font-semibold leading-relaxed">
-      &ldquo;Built by a payments researcher, and optimistic about where payments are going &mdash; especially stablecoins.
-      No payment provider pays us. Every recommendation on Paycrit is based entirely on independent research.&rdquo;
+      &ldquo;Paycrit was built by a payments researcher tired of watching merchants get blindsided by the wrong provider. No VC money. No provider partnerships. Just honest research.&rdquo;
     </p>
     <div class="mt-8 flex items-center justify-center gap-3">
       <div class="w-8 h-px bg-slate-200"></div>
@@ -413,59 +278,51 @@
 <!-- FOOTER -->
 <footer class="bg-white border-t border-slate-100 px-6 py-8">
   <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-    <a href="index.html" class="paycrit-logo" style="font-size:18px;"><span class="pc-pay">Pay</span><span class="pc-crit">crit</span></a>
-    <div class="flex items-center flex-wrap justify-center gap-5 text-xs text-slate-400">
+    <div class="flex items-center gap-5 text-xs text-slate-400">
       <a href="dashboard.html" class="hover:text-slate-700 transition-colors">Compare</a>
       <a href="services.html" class="hover:text-slate-700 transition-colors">Services</a>
       <a href="blog.html" class="hover:text-slate-700 transition-colors">Blog</a>
       <a href="terms.html" class="hover:text-slate-700 transition-colors">Terms</a>
       <a href="privacy.html" class="hover:text-slate-700 transition-colors">Privacy</a>
     </div>
-    <p class="text-slate-400 text-xs">Paycrit is an independent comparison service. Not a payment processor.</p>
+    <p class="text-slate-400 text-xs">Paycrit is an independent comparison service.</p>
   </div>
 </footer>
 
 <script>
-// TYPEWRITER — stablecoins listed first
+// ── TYPEWRITER ────────────────────────────────────────────────────────────────
 const WORDS = [
-  "Stablecoin Payments",
-  "Cross-Border Payments",
-  "Digital Wallets",
-  "Card Payments",
+  "Stablecoins",
+  "Cross-border Payments",
+  "Foreign Exchange",
+  "ETFs / ACH",
+  "Wallets",
+  "Point of Sale (POS)",
 ];
 const el = document.getElementById("typewriter");
 let wi = 0, ci = 0, deleting = false;
+
 function type() {
   const word = WORDS[wi];
   el.textContent = deleting ? word.slice(0, ci - 1) : word.slice(0, ci + 1);
   deleting ? ci-- : ci++;
-  if (!deleting && ci === word.length) { setTimeout(() => { deleting = true; type(); }, 2200); return; }
-  if (deleting && ci === 0) { deleting = false; wi = (wi + 1) % WORDS.length; }
+
+  if (!deleting && ci === word.length) {
+    setTimeout(() => { deleting = true; type(); }, 2200);
+    return;
+  }
+  if (deleting && ci === 0) {
+    deleting = false;
+    wi = (wi + 1) % WORDS.length;
+  }
   setTimeout(type, deleting ? 55 : 95);
 }
+
 type();
 
-// CALCULATOR
-const slider  = document.getElementById('volume-slider');
-const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
-
-function updateCalc() {
-  const vol    = parseInt(slider.value);
-  const card   = vol * 0.029;
-  const stable = vol * 0.01;
-  const saving = card - stable;
-  document.getElementById('vol-display').textContent    = fmt(vol);
-  document.getElementById('card-fee').textContent       = fmt(card);
-  document.getElementById('stable-fee').textContent     = fmt(stable);
-  document.getElementById('monthly-saving').textContent = fmt(saving);
-  document.getElementById('annual-saving').textContent  = fmt(saving * 12) + ' / year';
-  document.getElementById('cb-vol').textContent         = fmt(vol);
-  document.getElementById('cb-cost').textContent        = fmt(vol * 0.005) + '\u2013' + fmt(vol * 0.01);
-}
-slider.addEventListener('input', updateCalc);
-updateCalc();
-
-// Tab handoff to dashboard
+// ── TAB HANDOFF TO DASHBOARD ──────────────────────────────────────────────────
+// If user clicked "Find My Match", dashboard.html reads sessionStorage on load
+// and auto-switches to the match tab.
 </script>
 </body>
 </html>

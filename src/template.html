@@ -5,24 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Paycrit - Payment Provider Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {
     --navy:       #0B2D5E;
     --navy-dark:  #091F42;
-    --teal:       #00B4A2;
-    --teal-dark:  #009E8E;
-    --teal-light: #E0F5F3;
-    --teal-mid:   #80D9D1;
+    --blue:       #2563EB;
+    --blue-dark:  #1D4ED8;
+    --blue-light: #EFF6FF;
+    --blue-mid:   #93C5FD;
+    --teal:       var(--blue);
+    --teal-dark:  var(--blue-dark);
+    --teal-light: var(--blue-light);
+    --teal-mid:   var(--blue-mid);
   }
-  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+  * { font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif; }
   h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
   h2 { font-weight: 800; letter-spacing: -0.75px; }
   h3 { font-weight: 800; letter-spacing: -0.5px; }
-  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
+  .paycrit-logo{font-family:'Manrope','Segoe UI',system-ui,sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}
   .pc-pay{color:#0B2D5E;}
-  .pc-crit{color:#00B4A2;}
+  .pc-crit{color:var(--blue);}
   body { background: #ffffff; color: #1e293b; }
   .tab-active   { border-bottom: 2px solid var(--teal); color: var(--navy); font-weight: 700; }
   .tab-inactive { border-bottom: 2px solid transparent; color: #64748b; font-weight: 500; }
@@ -32,8 +36,8 @@
   .chip-off { background: #fff; color: #475569; border-color: #e2e8f0; }
   .chip-off:hover { border-color: var(--teal); color: var(--teal); }
   .pcard { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s; }
-  .pcard:hover { box-shadow: 0 12px 40px rgba(0,180,162,0.13); border-color: var(--teal-mid); transform: translateY(-3px); }
-  .pcard-top { background: linear-gradient(135deg,#f8fafc 0%,#E0F5F3 100%); padding: 18px 20px 14px; display: flex; align-items: flex-start; justify-content: space-between; }
+  .pcard:hover { box-shadow: 0 12px 40px rgba(37,99,235,0.13); border-color: var(--teal-mid); transform: translateY(-3px); }
+  .pcard-top { background: linear-gradient(135deg,#f8fafc 0%,#EFF6FF 100%); padding: 18px 20px 14px; display: flex; align-items: flex-start; justify-content: space-between; }
   .logo-shelf { display: flex; align-items: center; min-height: 44px; }
   .logo-box { background: #fff; border-radius: 10px; padding: 8px 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.09); display: inline-flex; align-items: center; justify-content: center; min-width: 80px; }
   .provider-logo { height: 28px; max-width: 110px; object-fit: contain; display: block; }
@@ -42,7 +46,7 @@
   .pscore-label { font-size: 9px; font-weight: 800; color: var(--teal); letter-spacing: 0.8px; text-transform: uppercase; }
   .pcard-body { padding: 14px 20px 18px; }
   .vol-tag { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 600; background: #f1f5f9; color: #475569; }
-  .type-tag { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 600; background: #E0F5F3; color: #0B2D5E; }
+  .type-tag { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 600; background: #EFF6FF; color: #0B2D5E; }
   .insight { font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 8px; margin-bottom: 4px; line-height: 1.4; }
   .insight-pro { background: #dcfce7; color: #15803d; }
   .insight-con { background: #fef3c7; color: #92400e; }
@@ -81,7 +85,7 @@
 </nav>
 
 <!-- PAGE HERO -->
-<section class="bg-white border-b border-slate-100 px-6 py-10 text-center" style="background:radial-gradient(ellipse 80% 60% at 50% -10%, #E0F5F3 0%, #ffffff 70%)">
+<section class="bg-white border-b border-slate-100 px-6 py-10 text-center" style="background:radial-gradient(ellipse 80% 60% at 50% -10%, #EFF6FF 0%, #ffffff 70%)">
   <div class="max-w-2xl mx-auto">
     <span class="inline-flex items-center text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4" style="background:var(--teal-light);color:var(--teal-dark);border:1px solid var(--teal-mid);">Payment Provider Intelligence</span>
     <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mb-3">Compare &amp; Find Your Match</h1>
@@ -271,7 +275,7 @@ function scoreColor(s) {
 function scoreBadge(s) {
   if (s===null) return {label:'Not Rated',bg:'#f1f5f9',text:'#64748b'};
   if (s>=4.5) return {label:'Excellent',bg:'#dcfce7',text:'#15803d'};
-  if (s>=3.5) return {label:'Good',bg:'#E0F5F3',text:'#009E8E'};
+  if (s>=3.5) return {label:'Good',bg:'#EFF6FF',text:'#1D4ED8'};
   if (s>=2.5) return {label:'Average',bg:'#fef3c7',text:'#92400e'};
   return {label:'Below Avg',bg:'#fee2e2',text:'#991b1b'};
 }

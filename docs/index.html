@@ -5,27 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Paycrit — Find Your Payment Partner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {
     --navy:       #0B2D5E;
     --navy-dark:  #091F42;
     --navy-light: #E8EEF7;
-    --teal:       #00B4A2;
-    --teal-dark:  #009E8E;
-    --teal-light: #E0F5F3;
-    --teal-mid:   #80D9D1;
+    --blue:       #2563EB;
+    --blue-dark:  #1D4ED8;
+    --blue-light: #EFF6FF;
+    --blue-mid:   #93C5FD;
+    --teal:       var(--blue);
+    --teal-dark:  var(--blue-dark);
+    --teal-light: var(--blue-light);
+    --teal-mid:   var(--blue-mid);
   }
-  * { font-family: 'Poppins', system-ui, sans-serif; }
+  * { font-family: 'Manrope', system-ui, sans-serif; }
   body { background: #ffffff; color: #1e293b; }
   h1 { font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
   h2 { font-weight: 800; letter-spacing: -0.75px; }
   h3 { font-weight: 700; letter-spacing: -0.5px; }
 
-  .paycrit-logo { font-size:22px; font-weight:800; letter-spacing:-0.5px; text-decoration:none; line-height:1; display:inline-flex; align-items:center; }
+  .paycrit-logo { font-family:'Manrope','Segoe UI',system-ui,sans-serif; font-size:22px; font-weight:800; letter-spacing:-0.5px; text-decoration:none; line-height:1; display:inline-flex; align-items:center; }
   .pc-pay  { color: var(--navy); }
-  .pc-crit { color: var(--teal); }
+  .pc-crit { color: var(--blue); }
 
   .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--teal-light) 0%, #ffffff 70%); }
 
@@ -67,7 +71,7 @@
     background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 28px 24px;
     transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
   }
-  .feature-card:hover { box-shadow: 0 8px 32px rgba(0,180,162,0.12); border-color: var(--teal-mid); transform: translateY(-2px); }
+  .feature-card:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.12); border-color: var(--teal-mid); transform: translateY(-2px); }
   .feature-card a { color: var(--teal); }
   .icon-wrap { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
 
@@ -85,9 +89,9 @@
 
   /* Payment area cards */
   .area-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 28px; transition: all 0.2s; }
-  .area-card:hover { box-shadow: 0 8px 32px rgba(0,180,162,0.10); border-color: var(--teal-mid); transform: translateY(-2px); }
+  .area-card:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.10); border-color: var(--teal-mid); transform: translateY(-2px); }
   .area-featured { background: var(--navy); border: none; border-radius: 20px; padding: 28px; }
-  .area-tag { display: inline-flex; background: rgba(0,180,162,0.18); color: var(--teal); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .area-tag { display: inline-flex; background: rgba(37,99,235,0.18); color: var(--teal); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.06em; text-transform: uppercase; }
   .area-tag-gray { display: inline-flex; background: var(--teal-light); color: var(--teal-dark); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.06em; text-transform: uppercase; }
 
 

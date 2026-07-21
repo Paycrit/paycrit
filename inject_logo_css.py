@@ -1,12 +1,12 @@
 """inject_logo_css.py - add logo CSS to all pages that are missing it."""
 from pathlib import Path
 
-OLD = "  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }"
+OLD = "  * { font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif; }"
 NEW = (
-    "  * { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }\n"
-    "  .paycrit-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}\n"
+    "  * { font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif; }\n"
+    "  .paycrit-logo{font-family:'Manrope','Segoe UI',system-ui,sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;text-decoration:none;line-height:1;display:inline-flex;align-items:center;}\n"
     "  .pc-pay{color:#0B2D5E;}\n"
-    "  .pc-crit{color:#00B4A2;}"
+    "  .pc-crit{color:#2563EB;}"
 )
 
 FILES = [

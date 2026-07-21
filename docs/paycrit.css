@@ -1,6 +1,6 @@
 /* =============================================================
    paycrit.css — Single source of truth for all Paycrit pages
-   Font: Inter (loaded via Google Fonts link in each HTML head)
+   Font: Manrope (loaded via Google Fonts link in each HTML head)
    ============================================================= */
 
 /* ── Brand tokens ──────────────────────────────────────────── */
@@ -8,14 +8,18 @@
   --navy:       #0B2D5E;
   --navy-dark:  #091F42;
   --navy-light: #E8EEF7;
-  --teal:       #00B4A2;
-  --teal-dark:  #009E8E;
-  --teal-light: #E0F5F3;
-  --teal-mid:   #80D9D1;
+  --blue:       #2563EB;
+  --blue-dark:  #1D4ED8;
+  --blue-light: #EFF6FF;
+  --blue-mid:   #93C5FD;
+  --teal:       var(--blue);
+  --teal-dark:  var(--blue-dark);
+  --teal-light: var(--blue-light);
+  --teal-mid:   var(--blue-mid);
 }
 
 /* ── Base ──────────────────────────────────────────────────── */
-* { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+* { font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif; }
 body { background: #f8fafc; color: #1e293b; }
 
 /* ── Typography ─────────────────────────────────────────────── */
@@ -25,12 +29,13 @@ h3 { font-weight: 800; letter-spacing: -0.5px; }
 
 /* ── Logo ────────────────────────────────────────────────────── */
 .paycrit-logo {
+  font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif;
   font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
   text-decoration: none; line-height: 1;
   display: inline-flex; align-items: center;
 }
 .pc-pay  { color: var(--navy); }
-.pc-crit { color: var(--teal); }
+.pc-crit { color: var(--blue); }
 
 /* ── Primary button ──────────────────────────────────────────── */
 .btn-primary {

@@ -1,4 +1,4 @@
-"""Apply navy/teal brand theme to all Paycrit HTML pages."""
+"""Apply Paycrit brand theme (navy + blue, Manrope-ready tokens) to HTML pages."""
 import re
 from pathlib import Path
 
@@ -9,10 +9,14 @@ CSS_VARS = """\
   :root {
     --navy:       #0B2D5E;
     --navy-dark:  #091F42;
-    --teal:       #00B4A2;
-    --teal-dark:  #009E8E;
-    --teal-light: #E0F5F3;
-    --teal-mid:   #80D9D1;
+    --blue:       #2563EB;
+    --blue-dark:  #1D4ED8;
+    --blue-light: #EFF6FF;
+    --blue-mid:   #93C5FD;
+    --teal:       var(--blue);
+    --teal-dark:  var(--blue-dark);
+    --teal-light: var(--blue-light);
+    --teal-mid:   var(--blue-mid);
   }
   h1 { letter-spacing: -1.5px; }
   h2 { letter-spacing: -0.75px; }
@@ -47,7 +51,7 @@ SWAPS = [
      "class=\"text-sm font-semibold\" style=\"color:var(--teal)\">Services"),
     # blog post card hover + tag pill
     ("box-shadow: 0 8px  rgba(37,99,235,0.08);\n    border-color: #bfdbfe;",
-     "box-shadow: 0 8px 32px rgba(0,180,162,0.10);\n    border-color: var(--teal-mid);"),
+     "box-shadow: 0 8px 32px rgba(37,99,235,0.10);\n    border-color: var(--teal-mid);"),
     ("background: #eff6ff; color: #2563eb; font-size: 11px; font-weight: 700;\n    padding: 3px 10px; border-radius: 99px; border: 1px solid #bfdbfe;",
      "background: var(--teal-light); color: var(--teal-dark); font-size: 11px; font-weight: 700;\n    padding: 3px 10px; border-radius: 99px; border: 1px solid var(--teal-mid);"),
     # blog read article link + heading hover
@@ -78,13 +82,13 @@ SWAPS = [
     (".check-blue  { background: #dbeafe; color: #2563eb; }",
      ".check-teal  { background: var(--teal-light); color: var(--teal-dark); }"),
     ("tier-card.featured {\n    border-color: #2563eb;\n    box-shadow: 0 0 0 4px rgba(37,99,235,0.08);",
-     "tier-card.featured {\n    border-color: var(--teal);\n    box-shadow: 0 0 0 4px rgba(0,180,162,0.08);"),
+     "tier-card.featured {\n    border-color: var(--teal);\n    box-shadow: 0 0 0 4px rgba(37,99,235,0.08);"),
     (".tier-card:hover { box-shadow: 0 8px 40px rgba(37,99,235,0.10); }",
      ".tier-card:hover { box-shadow: 0 8px 40px rgba(0,180,162,0.12); }"),
     (".benefit-card:hover { box-shadow: 0 4px 24px rgba(37,99,235,0.08); border-color: #bfdbfe; }",
-     ".benefit-card:hover { box-shadow: 0 4px 24px rgba(0,180,162,0.10); border-color: var(--teal-mid); }"),
+     ".benefit-card:hover { box-shadow: 0 4px 24px rgba(37,99,235,0.10); border-color: var(--teal-mid); }"),
     (".form-input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.10); }",
-     ".form-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,180,162,0.12); }"),
+     ".form-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }"),
     ("background: #2563eb; color: #fff; font-weight: 700;\n    padding: 14px 32px; border-radius: 12px; font-size: 15px;\n    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;\n    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;\n  }\n  .btn-primary:hover {\n    background: #1d4ed8;\n    box-shadow: 0 4px 20px rgba(37,99,235,0.3);",
      "background: var(--navy); color: #fff; font-weight: 700; letter-spacing:-0.2px;\n    padding: 14px 32px; border-radius: 12px; font-size: 15px;\n    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;\n    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;\n  }\n  .btn-primary:hover {\n    background: var(--navy-dark);\n    box-shadow: 0 4px 20px rgba(11,45,94,0.35);"),
     ("background: #eff6ff; color: #2563eb; font-size: 12px; font-weight: 700;\n    padding: 4px 12px; border-radius: 99px; border: 1px solid #bfdbfe;\n    letter-spacing: 0.04em; text-transform: uppercase;",

@@ -1,16 +1,16 @@
 """
-lock_logo.py — applies the dual-tone CSS logo to all pages,
+lock_logo.py — applies the official Paycrit wordmark to all pages,
 cleans up old SVG/PNG logo markup, and injects the logo CSS.
 """
 from pathlib import Path
 import re
 
 LOGO_CSS = (
-    "  .paycrit-logo{font-family:'Inter','Segoe UI',system-ui,sans-serif;"
+    "  .paycrit-logo{font-family:'Manrope','Segoe UI',system-ui,sans-serif;"
     "font-size:22px;font-weight:800;letter-spacing:-0.5px;"
     "text-decoration:none;line-height:1;display:inline-flex;align-items:center;}\n"
     "  .pc-pay{color:#0B2D5E;}\n"
-    "  .pc-crit{color:#00B4A2;}\n"
+    "  .pc-crit{color:#2563EB;}\n"
 )
 
 # Matches ANY anchor with aria-label="Paycrit home" and everything inside it
@@ -47,7 +47,7 @@ for f, home_href in FILES.items():
     if ".pc-pay" not in orig and ".pc-pay" in content:
         content = content.replace("</style>", LOGO_CSS + "  </style>", 1)
 
-    # strip leftover Poppins import (no longer needed)
+    # strip leftover legacy Poppins import (no longer needed)
     content = content.replace(
         '&family=Poppins:wght@700&display=swap',
         '&display=swap'

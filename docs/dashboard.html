@@ -97,7 +97,7 @@
 <div class="bg-white border-b border-slate-100 sticky top-[73px] z-30">
   <div class="max-w-6xl mx-auto px-6 flex">
     <button onclick="switchTab('compare')" id="tab-compare" class="tab-active px-5 py-3.5 text-sm transition-all">Compare Providers</button>
-    <button onclick="switchTab('match')"   id="tab-match"   class="tab-inactive px-5 py-3.5 text-sm transition-all">Find My Match</button>
+    <button onclick="switchTab('match')"   id="tab-match"   class="tab-inactive px-5 py-3.5 text-sm transition-all">Match Engine</button>
   </div>
 </div>
 
@@ -132,7 +132,7 @@
 <!-- ===== MATCH PANEL ===== -->
 <div id="panel-match" class="hidden max-w-xl mx-auto px-4 py-12">
   <div class="text-center mb-8">
-    <h1 class="text-2xl font-black text-slate-900">Find Your Payment Match</h1>
+    <h1 class="text-2xl font-black text-slate-900">Match Engine</h1>
     <p class="text-slate-500 text-sm mt-1.5">5 smart questions. We'll rank the best providers and explain exactly why.</p>
   </div>
 
@@ -168,11 +168,10 @@
       <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:var(--teal)">Question 1 of 5</p>
       <h2 class="text-xl font-black text-slate-900 mb-5">What type of payments do you primarily process?</h2>
       <div class="flex flex-col gap-2.5">
-        <button onclick="pick('q1','fx')"     data-val="fx"     class="opt"><span class="opt-radio"></span>FX</button>
-        <button onclick="pick('q1','card')"   data-val="card"   class="opt"><span class="opt-radio"></span>Card Payments</button>
-        <button onclick="pick('q1','wallet')" data-val="wallet" class="opt"><span class="opt-radio"></span>Wallet</button>
         <button onclick="pick('q1','stable')" data-val="stable" class="opt"><span class="opt-radio"></span>Stablecoins</button>
-        <button onclick="pick('q1','global')" data-val="global" class="opt"><span class="opt-radio"></span>Global Payments</button>
+        <button onclick="pick('q1','wallet')" data-val="wallet" class="opt"><span class="opt-radio"></span>Digital wallets</button>
+        <button onclick="pick('q1','card')"   data-val="card"   class="opt"><span class="opt-radio"></span>Card payments</button>
+        <button onclick="pick('q1','global')" data-val="global" class="opt"><span class="opt-radio"></span>Cross-border payments</button>
       </div>
       <div class="mt-6 flex justify-end">
         <button onclick="goNext(1)" id="btn-1" disabled class="disabled:opacity-40 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all" style="background:var(--navy)">Next &rarr;</button>

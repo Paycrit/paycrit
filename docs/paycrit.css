@@ -125,3 +125,9 @@ h3 { font-weight: 800; letter-spacing: -0.5px; }
   border-radius: 12px; padding: 16px 18px; margin-bottom: 1rem;
 }
 .highlight-box p { color: var(--teal-dark); margin-bottom: 0; font-size: 0.875rem; }
+
+/* -- Keep nav Match Engine on desktop/tablet, hide on phone only -- */
+.nav-match-btn { display: inline-flex !important; }
+@media (max-width: 767px) {
+  .nav-match-btn { display: none !important; }
+}
